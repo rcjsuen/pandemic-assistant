@@ -1,0 +1,7 @@
+{
+  "name": "pandemic-assistant",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
