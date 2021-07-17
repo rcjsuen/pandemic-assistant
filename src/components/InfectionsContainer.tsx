@@ -1,6 +1,6 @@
 import React from 'react';
-import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonButton } from '@ionic/react';
-import { checkboxOutline, checkmarkCircleOutline, close, closeOutline, exitOutline, layersOutline } from 'ionicons/icons';
+import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonButton, IonIcon } from '@ionic/react';
+import { ellipse } from 'ionicons/icons';
 import './InfectionsContainer.css';
 import { City, getColor, toString } from '../service/city';
 import { Controller } from '../controller/controller';
@@ -69,6 +69,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     return <IonItemSliding id={id} key={index}>
                       <IonItem>
                         <IonLabel>{toString(card as City)}</IonLabel>
+                        <IonIcon icon={ellipse} color={getColor(card)}/>
                       </IonItem>
                         <IonItemOptions side="end">
                             {/* remove a card via Resilient Population */}
@@ -91,6 +92,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                                 this.updateState();
                             }}>
                                 <IonLabel>{toString(city as City)}</IonLabel>
+                                <IonIcon icon={ellipse} color={getColor(city)}/>
                             </IonItem>
                         })}
                     </div>
