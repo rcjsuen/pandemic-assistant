@@ -44,6 +44,10 @@ export class InfectionDeck {
         return this.groups;
     }
 
+    public getDiscards(): City[] {
+        return this.discards;
+    }
+
     public hasDiscards(): boolean {
         return this.discards.length > 0;
     }

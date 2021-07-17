@@ -54,6 +54,10 @@ export class PandemicAssistant {
         return this.infectionDeck.getCityGroups();
     }
 
+    public getDiscards(): City[] {
+        return this.infectionDeck.getDiscards();
+    }
+
     public getEpidemicsDrawn(): boolean[] {
         return this.epidemicsDrawn;
     }

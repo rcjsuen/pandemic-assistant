@@ -33,6 +33,10 @@ export class Controller {
         return this.assistant.getCityGroups();
     }
 
+    public getDiscards(): City[] {
+        return this.assistant.getDiscards();
+    }
+
     public getEpidemicsDrawn(): boolean[] {
         return this.assistant.getEpidemicsDrawn();
     }
