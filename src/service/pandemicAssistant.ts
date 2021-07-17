@@ -27,6 +27,10 @@ export class PandemicAssistant {
         this.epidemicsDrawnIndex = 0;
     }
 
+    public getRemainingPlayerCards(): number {
+        return this.playerDeck.getRemainingCards();
+    }
+
     public getMinRemainder(): number {
         return this.playerDeck.getMinRemainder();
     }

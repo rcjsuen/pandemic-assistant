@@ -6,6 +6,7 @@ import EpidemicItem from './EpidemicItem';
 import { happyOutline, warningOutline } from 'ionicons/icons';
 
 class EpidemicsContainer extends React.Component<{ controller: Controller }, {
+    playerCards: number;
     epidemics: boolean[];
     minCards: number;
     maxCards: number;
@@ -16,12 +17,14 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
     private handler: Function = () => {
         if (this.mounted) {
             this.setState({
+                playerCards: this.props.controller.getRemainingPlayerCards(),
                 epidemics: this.props.controller.getEpidemicsDrawn(),
                 minCards: this.props.controller.getMinRemainder(),
                 maxCards: this.props.controller.getMaxRemainder(),
             });
         } else {
             this.state = {
+                playerCards: this.props.controller.getRemainingPlayerCards(),
                 epidemics: this.props.controller.getEpidemicsDrawn(),
                 minCards: this.props.controller.getMinRemainder(),
                 maxCards: this.props.controller.getMaxRemainder()
@@ -32,6 +35,7 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
     constructor(props: { controller: Controller }) {
         super(props)
         this.state = {
+            playerCards: this.props.controller.getRemainingPlayerCards(),
             epidemics: this.props.controller.getEpidemicsDrawn(),
             minCards: this.props.controller.getMinRemainder(),
             maxCards: this.props.controller.getMaxRemainder()
@@ -51,20 +55,27 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
     public render() {
         const minRounds = Math.ceil(this.state.minCards / 2);
         const maxRounds = Math.ceil(this.state.maxCards / 2);
+        const allDrawn = this.state.epidemics.length === 0 ? false : this.state.epidemics.reduce((previous, current) => {
+            return previous && current;
+        });
         return (
             <IonList>
                 <IonItem>
+                    <IonLabel>Player Deck Size</IonLabel>
+                    <IonNote slot="end" color="dark">{this.state.playerCards}</IonNote>
+                </IonItem>
+                {!allDrawn && <IonItem>
                     <IonLabel>Cards to Next Epidemic</IonLabel>
                     <IonNote slot="end" color="dark">{this.state.minCards === 0 && this.state.maxCards === 0 ? "0" : `${this.state.minCards}-${this.state.maxCards}`}</IonNote>
-                </IonItem>
-                <IonItem>
+                </IonItem>}
+                {!allDrawn && <IonItem>
                     <IonLabel>Rounds to Next Epidemic</IonLabel>
                     <IonNote slot="end" color="dark">{minRounds === 0 && maxRounds === 0 ? "0" : `${minRounds}-${maxRounds}`}</IonNote>
-                </IonItem>
+                </IonItem>}
                 {this.state.epidemics.map((drawn, index) => {
                     return <EpidemicItem key={index} drawn={drawn} position={index + 1} />
                 })}
-                <IonGrid>
+                {!allDrawn && <IonGrid>
                     <IonRow>
                         <IonCol>
                         </IonCol>
@@ -81,7 +92,7 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
                         <IonCol>
                         </IonCol>
                     </IonRow>
-                </IonGrid>
+                </IonGrid>}
             </IonList>
         );
     }

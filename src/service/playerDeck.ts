@@ -28,6 +28,10 @@ export class PlayerDeck {
         this.currentBucket = this.counts.length - 1;
     }
 
+    public getRemainingCards(): number {
+        return this.deck;
+    }
+
     public draw(epidemic: boolean): void {
         this.drawnCards++;
         this.drawnCurrentBucket++;

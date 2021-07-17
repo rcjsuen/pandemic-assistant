@@ -76,6 +76,10 @@ export class Controller {
         this.assistant.intensify();
     }
 
+    public getRemainingPlayerCards(): number {
+        return this.assistant.getRemainingPlayerCards();
+    }
+
     public getCityGroups(): City[][] {
         return this.assistant.getCityGroups();
     }
