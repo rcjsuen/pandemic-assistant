@@ -29,7 +29,7 @@ class EpidemicsContainer2 extends React.Component<{ controller: Controller }, { 
         const minRounds = Math.ceil(minCards / 2);
         const maxRounds = Math.ceil(maxCards / 2);
         return (
-            <IonList class="ion-padding">
+            <IonList>
                 <IonItem>
                     <IonLabel>Cards to Next Epidemic</IonLabel>
                     <IonNote slot="end" color="dark">{minCards === 0 && maxCards === 0 ? "0" : `${minCards}-${maxCards}`}</IonNote>
@@ -74,7 +74,7 @@ const EpidemicsContainer: React.FC<ContainerProps> = ({ name }) => {
     let epidemics = Assistant.getEpidemicsDrawn();
     const [present, dismiss] = useIonActionSheet();
     return (
-        <IonList class="ion-padding">
+        <IonList>
             <IonButton expand="block"
                 onClick={() =>
                     present({

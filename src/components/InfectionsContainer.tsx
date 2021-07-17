@@ -34,7 +34,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                         <IonCol></IonCol>
                     </IonRow>
                 </IonGrid>
-                <IonList class="ion-padding">
+                <IonList>
                 {this.state.groups.map((group, index) => {
                     return <div key={index}>
                         <IonItemDivider sticky>{index === 0 ? "Current Group" : `Group ${index + 1}`}</IonItemDivider>
