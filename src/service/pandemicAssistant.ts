@@ -24,6 +24,7 @@ export class PandemicAssistant {
         for (let i = 0; i < epidemicCards; i++) {
             this.epidemicsDrawn.push(false);
         }
+        this.epidemicsDrawnIndex = 0;
     }
 
     public getMinRemainder(): number {
