@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonActionSheet, IonGrid, IonCol, IonSelect, IonText, IonSelectOption, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonCheckbox, IonListHeader, IonIcon, IonButton, IonNote, useIonActionSheet } from '@ionic/react';
+import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonButton } from '@ionic/react';
 import { checkboxOutline, checkmarkCircleOutline, close, closeOutline, exitOutline, layersOutline } from 'ionicons/icons';
 import './InfectionsContainer.css';
 import { City, getColor, toString } from '../service/city';
@@ -41,16 +41,29 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                 </IonGrid>
                 <IonList>
                 <IonItemDivider sticky>Discards</IonItemDivider>
-                {this.state.discards.map((card, index) => {
-                    return <IonItem key={index + 1}>
+                    {this.state.discards.map((card, index) => {
+                    const id = `discard-${index}`;
+                    return <IonItemSliding id={id} key={index}>
+                      <IonItem>
                         <IonLabel>{toString(card as City)}</IonLabel>
-                    </IonItem>
+                      </IonItem>
+                        <IonItemOptions side="end">
+                            {/* remove a card via Resilient Population */}
+                            <IonItemOption color="danger" onClick={() => {
+                                this.props.controller.removeInfectionCard(card);
+                                this.updateState();
+                                (document.getElementById(id) as any).close();
+                            }}>
+                                Remove
+                            </IonItemOption>
+                      </IonItemOptions>
+                    </IonItemSliding>
                 })}
                 {this.state.groups.map((group, index) => {
                     return <div key={index}>
                         <IonItemDivider sticky>{index === 0 ? "Current Group" : `Group ${index + 1}`}</IonItemDivider>
                         {group.map((city, index) => {
-                            return <IonItem key={index + 1} button onClick={() => { 
+                            return <IonItem key={index} button onClick={() => { 
                                 this.props.controller.drawInfectionDeck(city);
                                 this.updateState();
                             }}>

@@ -25,6 +25,10 @@ export class Controller {
         this.assistant.drawInfectionDeck(city);
     }
 
+    public removeInfectionCard(city: string): void {
+        this.assistant.removeInfectionCard(city);
+    }
+
     public intensify(): void {
         this.assistant.intensify();
     }

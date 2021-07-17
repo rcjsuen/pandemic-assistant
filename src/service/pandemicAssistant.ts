@@ -46,6 +46,10 @@ export class PandemicAssistant {
         this.infectionDeck.draw(city as City);
     }
 
+    public removeInfectionCard(city: string): void {
+        this.infectionDeck.removeInfectionCard(city as City);
+    }
+
     public intensify(): void {
         this.infectionDeck.intensify();
     }

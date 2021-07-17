@@ -40,6 +40,14 @@ export class InfectionDeck {
         this.discards = [];
     }
 
+    public removeInfectionCard(city: City): void {
+        const idx = this.discards.indexOf(city);
+        if (idx === -1) {
+            throw new Error("Can only remove a card that is in the discard pile")
+        }
+        this.discards.splice(idx, 1);
+    }
+
     public getCityGroups(): City[][] {
         return this.groups;
     }
