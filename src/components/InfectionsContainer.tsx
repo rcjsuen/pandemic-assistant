@@ -46,13 +46,14 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
     }
   
     public render() {
+        const hasDiscards = this.state.discards.length > 0;
         return (
             <div>
                 <IonGrid>
                     <IonRow>
                         <IonCol></IonCol>
                         <IonCol>
-                            <IonButton expand="block" onClick={() => {
+                            <IonButton disabled={!hasDiscards} expand="block" onClick={() => {
                                 this.props.controller.intensify();
                                 this.updateState();
                             }} >
