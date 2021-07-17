@@ -20,6 +20,7 @@ export class PandemicAssistant {
     public setup(playerCount: number, eventCards: number, epidemicCards: number): void {
         this.playerDeck = new PlayerDeck(playerCount, eventCards, epidemicCards);
         this.infectionDeck = new InfectionDeck();
+        this.epidemicsDrawn = [];
         for (let i = 0; i < epidemicCards; i++) {
             this.epidemicsDrawn.push(false);
         }
