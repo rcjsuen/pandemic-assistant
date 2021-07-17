@@ -13,6 +13,10 @@ export class Controller {
         this.assistant = new PandemicAssistant();
     }
 
+    public setup(playerCount: number, eventCards: number, epidemicCards: number): void {
+        this.assistant.setup(playerCount, eventCards, epidemicCards);
+    }
+
     public drawPlayerDeck(epidemic: boolean): void {
         this.assistant.drawPlayerDeck(epidemic);
     }

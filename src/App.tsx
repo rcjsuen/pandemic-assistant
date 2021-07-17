@@ -12,6 +12,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, globeOutline, triangle, warningOutline } from 'ionicons/icons';
 import EpidemicsTab from './pages/EpidemicsTab';
 import InfectionsTab from './pages/InfectionsTab';
+import SetupTab from './pages/SetupTab';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -40,14 +41,14 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route exact path="/">
+            <SetupTab controller={controller} />
+          </Route>
           <Route exact path="/epidemics">
             <EpidemicsTab controller={controller} />
           </Route>
           <Route exact path="/infections">
             <InfectionsTab controller={controller} />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/epidemics" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
