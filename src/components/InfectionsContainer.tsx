@@ -85,8 +85,14 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     </IonItemSliding>
                 })}
                 {this.state.groups.map((group, index) => {
+                    let name = `Group ${index + 1}`;
+                    if (index === this.state.groups.length - 1) {
+                        name = "Deck";
+                    } else if (index === 0) {
+                        name = "Current Group";
+                    }
                     return <div key={index}>
-                        <IonItemDivider sticky>{index === 0 ? "Current Group" : `Group ${index + 1}`}</IonItemDivider>
+                        <IonItemDivider sticky>{name}</IonItemDivider>
                         {group.map((city, index) => {
                             return <IonItem key={index} button onClick={() => { 
                                 this.props.controller.drawInfectionDeck(city);
