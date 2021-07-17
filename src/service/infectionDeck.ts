@@ -18,6 +18,9 @@ export class InfectionDeck {
 
     public draw(city: City): void {
         this.discards.push(city);
+        this.discards.sort((a, b) => {
+            return a.localeCompare(b);
+        });
         for (const group of this.groups) {
             const idx = group.indexOf(city);
             if (idx !== -1) {
@@ -31,9 +34,6 @@ export class InfectionDeck {
     }
 
     public intensify(): void {
-        this.discards.sort((a, b) => {
-            return a.localeCompare(b);
-        });
         // insert the discard pile into the front of the groups
         this.groups.splice(0, 0, this.discards);
         // reset the discard pile
