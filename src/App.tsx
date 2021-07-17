@@ -8,7 +8,7 @@ import {
   IonTabButton,
   IonTabs,
 } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { IonReactHashRouter } from '@ionic/react-router';
 import { globeOutline, settingsOutline, warningOutline } from 'ionicons/icons';
 import EpidemicsTab from './pages/EpidemicsTab';
 import InfectionsTab from './pages/InfectionsTab';
@@ -38,7 +38,7 @@ const controller = new Controller();
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
+    <IonReactHashRouter>
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/setup">
@@ -69,7 +69,7 @@ const App: React.FC = () => (
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
-    </IonReactRouter>
+    </IonReactHashRouter>
   </IonApp>
 );
 
