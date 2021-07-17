@@ -7,18 +7,43 @@ export interface ControllerProps {
 
 export class Controller {
 
+    private playerDeckHandlers: Function[] = [];
+
+    private infectionDeckHandlers: Function[] = [];
+
     private assistant: PandemicAssistant;
 
     constructor() {
         this.assistant = new PandemicAssistant();
     }
 
+    public attachPlayerDeckHandler(handler: Function): void {
+        this.playerDeckHandlers.push(handler);
+    }
+
+    private notifyHandlers(handlers: Function[]): void {
+        handlers.forEach(handler => {
+            handler();
+        });
+    }
+
+    private notifyPlayerDeckHandlers(): void {
+        this.notifyHandlers(this.playerDeckHandlers);
+    }
+
+    private notifyInfectionDeckHandlers(): void {
+        this.notifyHandlers(this.infectionDeckHandlers);
+    }
+
     public setup(playerCount: number, eventCards: number, epidemicCards: number): void {
         this.assistant.setup(playerCount, eventCards, epidemicCards);
+        this.notifyPlayerDeckHandlers();
+        this.notifyInfectionDeckHandlers();
     }
 
     public drawPlayerDeck(epidemic: boolean): void {
         this.assistant.drawPlayerDeck(epidemic);
+        this.notifyPlayerDeckHandlers();
     }
 
     public drawInfectionDeck(city: string): void {

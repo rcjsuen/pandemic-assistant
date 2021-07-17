@@ -1,38 +1,64 @@
 import React from 'react';
-import { IonActionSheet, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonCheckbox, IonListHeader, IonIcon, IonButton, IonNote, useIonActionSheet } from '@ionic/react';
-import { checkboxOutline, checkmarkCircleOutline, close, closeOutline } from 'ionicons/icons';
+import { IonActionSheet, IonGrid, IonCol, IonRow, IonList, IonItem, IonLabel, IonButton, IonNote } from '@ionic/react';
 import './EpidemicsContainer.css';
 import { Controller } from '../controller/controller';
+import EpidemicItem from './EpidemicItem';
 
-class EpidemicsContainer extends React.Component<{ controller: Controller }, { showActionSheet: boolean }> {
+class EpidemicsContainer extends React.Component<{ controller: Controller }, {
+    epidemics: boolean[];
+    minCards: number;
+    maxCards: number;
+    showActionSheet: boolean
+}> {
+
+    private mounted: boolean = false;
 
     constructor(props: { controller: Controller }) {
         super(props)
-        this.state = { showActionSheet: false };
+        this.state = {
+            epidemics: this.props.controller.getEpidemicsDrawn(),
+            minCards: this.props.controller.getMinRemainder(),
+            maxCards: this.props.controller.getMaxRemainder(),
+            showActionSheet: false,
+        };
+        this.props.controller.attachPlayerDeckHandler(() => {
+            if (this.mounted) {
+                this.setState({
+                    epidemics: this.props.controller.getEpidemicsDrawn(),
+                    minCards: this.props.controller.getMinRemainder(),
+                    maxCards: this.props.controller.getMaxRemainder(),
+                });
+            } else {
+                this.state = {
+                    epidemics: this.props.controller.getEpidemicsDrawn(),
+                    minCards: this.props.controller.getMinRemainder(),
+                    maxCards: this.props.controller.getMaxRemainder(),
+                    showActionSheet: this.state.showActionSheet,
+                };
+            }
+        });
+    }
+
+    public componentDidMount(): void {
+        this.mounted = true;
     }
   
     public render() {
         const showActionSheet = this.state.showActionSheet;
-        let epidemics = this.props.controller.getEpidemicsDrawn();
-        const minCards = this.props.controller.getMinRemainder();
-        const maxCards = this.props.controller.getMaxRemainder();
-        const minRounds = Math.ceil(minCards / 2);
-        const maxRounds = Math.ceil(maxCards / 2);
+        const minRounds = Math.ceil(this.state.minCards / 2);
+        const maxRounds = Math.ceil(this.state.maxCards / 2);
         return (
             <IonList>
                 <IonItem>
                     <IonLabel>Cards to Next Epidemic</IonLabel>
-                    <IonNote slot="end" color="dark">{minCards === 0 && maxCards === 0 ? "0" : `${minCards}-${maxCards}`}</IonNote>
+                    <IonNote slot="end" color="dark">{this.state.minCards === 0 && this.state.maxCards === 0 ? "0" : `${this.state.minCards}-${this.state.maxCards}`}</IonNote>
                 </IonItem>
                 <IonItem>
                     <IonLabel>Rounds to Next Epidemic</IonLabel>
                     <IonNote slot="end" color="dark">{minRounds === 0 && maxRounds === 0 ? "0" : `${minRounds}-${maxRounds}`}</IonNote>
                 </IonItem>
-                {epidemics.map((drawn, index) => {
-                    return <IonItem key={index + 1}>
-                        <IonIcon icon={drawn ? checkmarkCircleOutline : closeOutline} slot="end" />
-                        <IonLabel>Epidemic {index + 1}</IonLabel>
-                    </IonItem>
+                {this.state.epidemics.map((drawn, index) => {
+                    return <EpidemicItem key={index} drawn={drawn} position={index + 1} />
                 })}
                 <IonGrid>
                     <IonRow>
