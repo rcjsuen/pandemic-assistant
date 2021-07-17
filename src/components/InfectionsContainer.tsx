@@ -9,19 +9,26 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
 
     private mounted: boolean = false;
 
+    private handler: Function = () => {
+        this.updateState();
+    };
+
     constructor(props: { controller: Controller }) {
         super(props)
         this.state = {
             groups: this.props.controller.getCityGroups(),
             discards: this.props.controller.getDiscards()
         };
-        this.props.controller.attachInfectionDeckHandler(() => {
-            this.updateState();
-        });
+        this.props.controller.attachInfectionDeckHandler(this.handler);
     }
 
     public componentDidMount(): void {
         this.mounted = true;
+    }
+
+    public componentWillUnmount(): void {
+        this.mounted = false;
+        this.props.controller.detachInfectionDeckHandler(this.handler);
     }
 
     private updateState(): void {

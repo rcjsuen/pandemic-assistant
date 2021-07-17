@@ -25,6 +25,20 @@ export class Controller {
         this.infectionDeckHandlers.push(handler);
     }
 
+    public detachPlayerDeckHandler(handler: Function): void {
+        const idx = this.playerDeckHandlers.indexOf(handler);
+        if (idx !== -1) {
+            this.playerDeckHandlers.splice(idx, 1);
+        }
+    }
+
+    public detachInfectionDeckHandler(handler: Function): void {
+        const idx = this.infectionDeckHandlers.indexOf(handler);
+        if (idx !== -1) {
+            this.infectionDeckHandlers.splice(idx, 1);
+        }
+    }
+
     private notifyHandlers(handlers: Function[]): void {
         handlers.forEach(handler => {
             handler();

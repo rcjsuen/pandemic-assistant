@@ -13,6 +13,22 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
 
     private mounted: boolean = false;
 
+    private handler: Function = () => {
+        if (this.mounted) {
+            this.setState({
+                epidemics: this.props.controller.getEpidemicsDrawn(),
+                minCards: this.props.controller.getMinRemainder(),
+                maxCards: this.props.controller.getMaxRemainder(),
+            });
+        } else {
+            this.state = {
+                epidemics: this.props.controller.getEpidemicsDrawn(),
+                minCards: this.props.controller.getMinRemainder(),
+                maxCards: this.props.controller.getMaxRemainder()
+            };
+        }
+    };
+
     constructor(props: { controller: Controller }) {
         super(props)
         this.state = {
@@ -20,25 +36,16 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
             minCards: this.props.controller.getMinRemainder(),
             maxCards: this.props.controller.getMaxRemainder()
         };
-        this.props.controller.attachPlayerDeckHandler(() => {
-            if (this.mounted) {
-                this.setState({
-                    epidemics: this.props.controller.getEpidemicsDrawn(),
-                    minCards: this.props.controller.getMinRemainder(),
-                    maxCards: this.props.controller.getMaxRemainder(),
-                });
-            } else {
-                this.state = {
-                    epidemics: this.props.controller.getEpidemicsDrawn(),
-                    minCards: this.props.controller.getMinRemainder(),
-                    maxCards: this.props.controller.getMaxRemainder()
-                };
-            }
-        });
+        this.props.controller.attachPlayerDeckHandler(this.handler);
     }
 
     public componentDidMount(): void {
         this.mounted = true;
+    }
+
+    public componentWillUnmount(): void {
+        this.mounted = false;
+        this.props.controller.detachPlayerDeckHandler(this.handler);
     }
   
     public render() {
