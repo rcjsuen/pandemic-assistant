@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IonActionSheet, IonGrid, IonCol, IonSelect, IonText, IonSelectOption, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonCheckbox, IonListHeader, IonIcon, IonButton, IonNote, useIonActionSheet } from '@ionic/react';
 import { checkboxOutline, checkmarkCircleOutline, close, closeOutline, exitOutline, layersOutline } from 'ionicons/icons';
 import './InfectionsContainer.css';
 import { City, getColor, toString } from '../service/city';
-import { ellipse, globeOutline, triangle, warningOutline } from 'ionicons/icons';
 import { Controller } from '../controller/controller';
-
-interface ContainerProps {
-    name: string;
-}
 
 class InfectionsContainer extends React.Component<{ controller: Controller }, { groups: City[][] }> {
 

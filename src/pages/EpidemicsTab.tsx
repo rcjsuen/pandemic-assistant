@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { IonActionSheet, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import EpidemicsContainer2 from '../components/EpidemicsContainer';
+import EpidemicsContainer from '../components/EpidemicsContainer';
 import './EpidemicsTab.css';
-import { Controller, ControllerProps } from "../controller/controller";
+import { ControllerProps } from "../controller/controller";
 
 const EpidemicsTab: React.FC<ControllerProps> = ({controller}) => {
   return (
@@ -18,7 +17,7 @@ const EpidemicsTab: React.FC<ControllerProps> = ({controller}) => {
             <IonTitle size="large">Epidemics</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <EpidemicsContainer2 controller={controller}/>
+        <EpidemicsContainer controller={controller}/>
       </IonContent>
     </IonPage>
   );

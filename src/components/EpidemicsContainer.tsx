@@ -1,20 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IonActionSheet, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonCheckbox, IonListHeader, IonIcon, IonButton, IonNote, useIonActionSheet } from '@ionic/react';
 import { checkboxOutline, checkmarkCircleOutline, close, closeOutline } from 'ionicons/icons';
 import './EpidemicsContainer.css';
-import { Assistant } from '../service/pandemicAssistant';
 import { Controller } from '../controller/controller';
 
-interface ContainerProps {
-    name: string;
-}
-const checkboxList = [
-    { val: 'Pepperoni', isChecked: true },
-    { val: 'Sausage', isChecked: false },
-    { val: 'Mushroom', isChecked: false }
-];
-
-class EpidemicsContainer2 extends React.Component<{ controller: Controller }, { showActionSheet: boolean }> {
+class EpidemicsContainer extends React.Component<{ controller: Controller }, { showActionSheet: boolean }> {
 
     constructor(props: { controller: Controller }) {
         super(props)
@@ -70,37 +60,4 @@ class EpidemicsContainer2 extends React.Component<{ controller: Controller }, { 
     }
 }
 
-const EpidemicsContainer: React.FC<ContainerProps> = ({ name }) => {
-    let epidemics = Assistant.getEpidemicsDrawn();
-    const [present, dismiss] = useIonActionSheet();
-    return (
-        <IonList>
-            <IonButton expand="block"
-                onClick={() =>
-                    present({
-                        buttons: [
-                            { text: "Player Card" },
-                            { text: "Epidemic" },
-                            { text: "Cancel", role: "cancel" }
-                        ],
-                        header: "What card was drawn?"
-                    })
-                }>Draw</IonButton>
-            <IonListHeader>
-                Player Deck
-            </IonListHeader>
-            <IonItem>
-                <IonLabel>Rounds to Next Epidemic</IonLabel>
-                <IonNote slot="end" color="dark">0-3</IonNote>
-            </IonItem>
-            {epidemics.map((drawn, index) => {
-                return <IonItem key={index + 1}>
-                    <IonIcon icon={drawn ? checkmarkCircleOutline : closeOutline} slot="end" />
-                    <IonLabel>Epidemic {index + 1}</IonLabel>
-                </IonItem>
-            })}
-        </IonList>
-    );
-};
-
-export default EpidemicsContainer2;
+export default EpidemicsContainer;
