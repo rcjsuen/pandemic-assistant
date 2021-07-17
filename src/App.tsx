@@ -41,9 +41,6 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route exact path="/">
-            <Redirect to="/setup" />
-          </Route>
           <Route exact path="/setup">
             <SetupTab controller={controller} />
           </Route>
@@ -52,6 +49,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/infections">
             <InfectionsTab controller={controller} />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/setup" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
