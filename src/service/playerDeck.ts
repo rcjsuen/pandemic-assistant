@@ -29,7 +29,7 @@ export class PlayerDeck {
     }
 
     public draw(epidemic: boolean): void {
-        this.drawnCards--;
+        this.drawnCards++;
         this.drawnCurrentBucket++;
         if (epidemic) {
             if (this.drawnEpidemics[this.currentBucket]) {
