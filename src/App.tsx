@@ -9,7 +9,7 @@ import {
   IonTabs,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, globeOutline, triangle, warningOutline } from 'ionicons/icons';
+import { globeOutline, settingsOutline, warningOutline } from 'ionicons/icons';
 import EpidemicsTab from './pages/EpidemicsTab';
 import InfectionsTab from './pages/InfectionsTab';
 import SetupTab from './pages/SetupTab';
@@ -55,6 +55,10 @@ const App: React.FC = () => (
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
+          <IonTabButton tab="setup" href="/setup">
+            <IonIcon icon={settingsOutline} />
+            <IonLabel>Setup</IonLabel>
+          </IonTabButton>
           <IonTabButton tab="epidemics" href="/epidemics">
             <IonIcon icon={warningOutline} />
             <IonLabel>Epidemics</IonLabel>
