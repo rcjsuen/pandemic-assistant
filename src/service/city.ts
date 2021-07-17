@@ -107,7 +107,95 @@ export function getColor(city: City): "danger" | "warning" | "dark" | "primary" 
     case City.Sydney:
         return "danger";
     }
-    return "danger";
+}
+
+export function toFlag(city: City) {
+    switch (city) {
+    case City.Paris:
+        return "🇨🇵";
+    case City.Atlanta:
+    case City.Chicago:
+    case City.LosAngeles:
+    case City.Miami:
+    case City.NewYork:
+    case City.SanFrancisco:
+    case City.WashingtonDC:
+        return "🇺🇸";
+    case City.Montreal:
+        return "🇨🇦";
+    case City.London:
+        return "🇬🇧";
+    case City.Madrid:
+        return "🇪🇸";
+    case City.Essen:
+        return "🇩🇪";
+    case City.Moscow:
+    case City.StPetersburg:
+        return "🇷🇺";
+    case City.Milan:
+        return "🇮🇹";
+    case City.MexicoCity:
+        return "🇲🇽";
+    case City.Bogota:
+        return "🇨🇴";
+    case City.SaoPaolo:
+        return "🇧🇷";
+    case City.BuenosAires:
+        return "🇦🇷";
+    case City.Lima:
+        return "🇵🇪";
+    case City.Santiago:
+        return "🇨🇱";
+    case City.Lagos:
+        return "🇳🇬";
+    case City.Kinshasa:
+        return "🇨🇩";
+    case City.Johannesburg:
+        return "🇿🇦";
+    case City.Khartoum:
+        return "🇸🇩";
+    case City.Algiers:
+        return "🇩🇿";
+    case City.Riyadh:
+        return "🇸🇦";
+    case City.Baghdad:
+        return "🇮🇶";
+    case City.Tehran:
+        return "🇮🇷";
+    case City.Cairo:
+        return "🇪🇬";
+    case City.Istanbul:
+        return "🇹🇷";
+    case City.Karachi:
+        return "🇵🇰";
+    case City.Delhi:
+    case City.Mumbai:
+    case City.Chennai:
+    case City.Kolkata:
+        return "🇮🇳";
+    case City.Beijing:
+    case City.Shanghai:
+        return "🇨🇳";
+    case City.HongKong:
+        return "🇭🇰";
+    case City.Taipei:
+        return "🇹🇼";
+    case City.Bangkok:
+        return "🇹🇭";
+    case City.Manila:
+        return "🇵🇭";
+    case City.Jakarta:
+        return "🇮🇩";
+    case City.HoChiMinhCity:
+        return "🇻🇳";
+    case City.Seoul:
+        return "🇰🇷";
+    case City.Osaka:
+    case City.Tokyo:
+        return "🇯🇵";
+    case City.Sydney:
+        return "🇦🇺";
+    }
 }
 
 export function toString(city: City) {

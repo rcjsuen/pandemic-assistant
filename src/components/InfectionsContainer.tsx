@@ -2,7 +2,7 @@ import React from 'react';
 import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonButton, IonIcon } from '@ionic/react';
 import { ellipse } from 'ionicons/icons';
 import './InfectionsContainer.css';
-import { City, getColor, toString } from '../service/city';
+import { City, getColor, toFlag, toString } from '../service/city';
 import { Controller } from '../controller/controller';
 
 class InfectionsContainer extends React.Component<{ controller: Controller }, { groups: City[][], discards: City[] }> {
@@ -69,7 +69,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     const id = `discard-${index}`;
                     return <IonItemSliding id={id} key={index}>
                       <IonItem>
-                        <IonLabel>{toString(card as City)}</IonLabel>
+                            <IonLabel>{toString(card as City)} {toFlag(card as City)}</IonLabel>
                         <IonIcon icon={ellipse} color={getColor(card)}/>
                       </IonItem>
                         <IonItemOptions side="end">
@@ -98,7 +98,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                                 this.props.controller.drawInfectionDeck(city);
                                 this.updateState();
                             }}>
-                                <IonLabel>{toString(city as City)}</IonLabel>
+                                <IonLabel>{toString(city as City)} {toFlag(city as City)}</IonLabel>
                                 <IonIcon icon={ellipse} color={getColor(city)}/>
                             </IonItem>
                         })}
