@@ -69,7 +69,7 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
                         <IonCol>
                         </IonCol>
                         <IonCol>
-                            <IonButton color="danger" expand="block" onClick={() => { this.props.controller.drawPlayerDeck(true) }}>
+                            <IonButton disabled={this.state.minCards > 0} color="danger" expand="block" onClick={() => { this.props.controller.drawPlayerDeck(true) }}>
                                 <IonIcon icon={warningOutline} />
                             </IonButton>
                         </IonCol>
