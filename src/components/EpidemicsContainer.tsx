@@ -1,14 +1,14 @@
 import React from 'react';
-import { IonActionSheet, IonGrid, IonCol, IonRow, IonList, IonItem, IonLabel, IonButton, IonNote } from '@ionic/react';
+import { IonGrid, IonCol, IonRow, IonList, IonItem, IonLabel, IonButton, IonNote, IonIcon } from '@ionic/react';
 import './EpidemicsContainer.css';
 import { Controller } from '../controller/controller';
 import EpidemicItem from './EpidemicItem';
+import { happyOutline, warningOutline } from 'ionicons/icons';
 
 class EpidemicsContainer extends React.Component<{ controller: Controller }, {
     epidemics: boolean[];
     minCards: number;
     maxCards: number;
-    showActionSheet: boolean
 }> {
 
     private mounted: boolean = false;
@@ -18,8 +18,7 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
         this.state = {
             epidemics: this.props.controller.getEpidemicsDrawn(),
             minCards: this.props.controller.getMinRemainder(),
-            maxCards: this.props.controller.getMaxRemainder(),
-            showActionSheet: false,
+            maxCards: this.props.controller.getMaxRemainder()
         };
         this.props.controller.attachPlayerDeckHandler(() => {
             if (this.mounted) {
@@ -32,8 +31,7 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
                 this.state = {
                     epidemics: this.props.controller.getEpidemicsDrawn(),
                     minCards: this.props.controller.getMinRemainder(),
-                    maxCards: this.props.controller.getMaxRemainder(),
-                    showActionSheet: this.state.showActionSheet,
+                    maxCards: this.props.controller.getMaxRemainder()
                 };
             }
         });
@@ -44,7 +42,6 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
     }
   
     public render() {
-        const showActionSheet = this.state.showActionSheet;
         const minRounds = Math.ceil(this.state.minCards / 2);
         const maxRounds = Math.ceil(this.state.maxCards / 2);
         return (
@@ -62,25 +59,22 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
                 })}
                 <IonGrid>
                     <IonRow>
-                        <IonCol></IonCol>
                         <IonCol>
-                            <IonButton expand="block" onClick={() => { this.setState({showActionSheet: true}) }}>
-                                Draw
+                        </IonCol>
+                        <IonCol>
+                            <IonButton color="danger" expand="block" onClick={() => { this.props.controller.drawPlayerDeck(true) }}>
+                                <IonIcon icon={warningOutline} />
                             </IonButton>
                         </IonCol>
-                        <IonCol></IonCol>
+                        <IonCol>
+                            <IonButton color="success" expand="block" onClick={() => { this.props.controller.drawPlayerDeck(false) }}>
+                                <IonIcon icon={happyOutline} />
+                            </IonButton>
+                        </IonCol>
+                        <IonCol>
+                        </IonCol>
                     </IonRow>
                 </IonGrid>
-                <IonActionSheet
-                  isOpen={showActionSheet}
-                  onDidDismiss={() => { this.setState({ showActionSheet: false })}}
-                  buttons={[
-                    { text: "Player Card", handler: () => { this.props.controller.drawPlayerDeck(false) } },
-                    { text: "Epidemic", handler: () => { this.props.controller.drawPlayerDeck(true) } },
-                    { text: "Cancel", role: "cancel" }
-                  ]}
-                >
-                </IonActionSheet>
             </IonList>
         );
     }
