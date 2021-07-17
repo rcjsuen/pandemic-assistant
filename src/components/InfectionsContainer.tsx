@@ -34,14 +34,11 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     return <div key={index}>
                         <IonItemDivider sticky>{index === 0 ? "Current Group" : `Group ${index + 1}`}</IonItemDivider>
                         {group.map((city, index) => {
-                            return <IonItem key={index + 1}>
+                            return <IonItem key={index + 1} button onClick={() => { 
+                                this.props.controller.drawInfectionDeck(city);
+                                this.setState({ groups: this.props.controller.getCityGroups() });
+                            }}>
                                 <IonLabel>{toString(city as City)}</IonLabel>
-                                <IonButton onClick={() => {
-                                    this.props.controller.drawInfectionDeck(city);
-                                    this.setState({ groups: this.props.controller.getCityGroups() });
-                                }} slot="end">
-                                    Draw
-                                </IonButton>
                             </IonItem>
                         })}
                     </div>
