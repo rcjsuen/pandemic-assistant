@@ -1,6 +1,6 @@
 # Pandemic Assistant
 
-Pandemic Assistant is a tool optimized solely for phones and tablets for monitoring the state of the Pandemic board game.
+Pandemic Assistant is a tool optimized solely for phones and tablets for monitoring the state of the Pandemic board game. The application is available [online](https://rcjsuen.github.io/pandemic-assistant/). After you open the link, click on the "Setup" tab on the bottom to initialize the assistant.
 
 ## Features
 ### Player Deck
