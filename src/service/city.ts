@@ -136,7 +136,7 @@ export function toString(city: City) {
     case City.Milan:
         return "Milan";
     case City.LosAngeles:
-        return "LosAngeles";
+        return "Los Angeles";
     case City.Miami:
         return "Miami";
     case City.MexicoCity:
