@@ -7,19 +7,35 @@ import { Controller } from '../controller/controller';
 
 class InfectionsContainer extends React.Component<{ controller: Controller }, { groups: City[][], discards: City[] }> {
 
+    private mounted: boolean = false;
+
     constructor(props: { controller: Controller }) {
         super(props)
         this.state = {
             groups: this.props.controller.getCityGroups(),
             discards: this.props.controller.getDiscards()
         };
+        this.props.controller.attachInfectionDeckHandler(() => {
+            this.updateState();
+        });
+    }
+
+    public componentDidMount(): void {
+        this.mounted = true;
     }
 
     private updateState(): void {
-        this.setState({
-            groups: this.props.controller.getCityGroups(),
-            discards: this.props.controller.getDiscards()
-        });
+        if (this.mounted) {
+            this.setState({
+                groups: this.props.controller.getCityGroups(),
+                discards: this.props.controller.getDiscards()
+            });
+        } else {
+            this.state = {
+                groups: this.props.controller.getCityGroups(),
+                discards: this.props.controller.getDiscards()
+            };
+        }
     }
   
     public render() {

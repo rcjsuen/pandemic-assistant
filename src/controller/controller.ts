@@ -21,6 +21,10 @@ export class Controller {
         this.playerDeckHandlers.push(handler);
     }
 
+    public attachInfectionDeckHandler(handler: Function): void {
+        this.infectionDeckHandlers.push(handler);
+    }
+
     private notifyHandlers(handlers: Function[]): void {
         handlers.forEach(handler => {
             handler();
