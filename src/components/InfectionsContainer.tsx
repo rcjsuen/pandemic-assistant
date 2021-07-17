@@ -64,8 +64,8 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     </IonRow>
                 </IonGrid>
                 <IonList>
-                <IonItemDivider sticky>Discards</IonItemDivider>
-                    {this.state.discards.map((card, index) => {
+                {hasDiscards && <IonItemDivider sticky>Discards</IonItemDivider>}
+                {hasDiscards && this.state.discards.map((card, index) => {
                     const id = `discard-${index}`;
                     return <IonItemSliding id={id} key={index}>
                       <IonItem>
