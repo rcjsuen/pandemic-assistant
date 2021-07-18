@@ -1,9 +1,9 @@
 import React from 'react';
-import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonItem, IonLabel, IonButton, IonIcon } from '@ionic/react';
-import { ellipse } from 'ionicons/icons';
+import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonButton } from '@ionic/react';
 import './InfectionsContainer.css';
-import { City, getColor, toFlag, toString } from '../service/city';
+import { City } from '../service/city';
 import { Controller } from '../controller/controller';
+import CityItem from './CityItem';
 
 class InfectionsContainer extends React.Component<{ controller: Controller }, { groups: City[][], discards: City[] }> {
 
@@ -68,10 +68,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                 {hasDiscards && this.state.discards.map((card, index) => {
                     const id = `discard-${index}`;
                     return <IonItemSliding id={id} key={index}>
-                      <IonItem>
-                            <IonLabel>{toString(card as City)} {toFlag(card as City)}</IonLabel>
-                        <IonIcon icon={ellipse} color={getColor(card)}/>
-                      </IonItem>
+                        <CityItem city={card} onClick={undefined}/>
                         <IonItemOptions side="end">
                             {/* remove a card via Resilient Population */}
                             <IonItemOption color="danger" onClick={() => {
@@ -94,13 +91,10 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     return <div key={index}>
                         <IonItemDivider sticky>{name}</IonItemDivider>
                         {group.map((city, index) => {
-                            return <IonItem key={index} button onClick={() => { 
+                            return <CityItem key={index} city={city} onClick={() => {
                                 this.props.controller.drawInfectionDeck(city);
                                 this.updateState();
-                            }}>
-                                <IonLabel>{toString(city as City)} {toFlag(city as City)}</IonLabel>
-                                <IonIcon icon={ellipse} color={getColor(city)}/>
-                            </IonItem>
+                            }}/>
                         })}
                     </div>
                 })}
