@@ -1,11 +1,11 @@
 import React from 'react';
-import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonButton } from '@ionic/react';
+import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonButton, IonCheckbox, IonLabel, IonSelect, IonSelectOption, IonToolbar, IonSegment, IonSegmentButton, IonButtons } from '@ionic/react';
 import './InfectionsContainer.css';
-import { City } from '../service/city';
+import { City, getColor } from '../service/city';
 import { Controller } from '../controller/controller';
 import CityItem from './CityItem';
 
-class InfectionsContainer extends React.Component<{ controller: Controller }, { groups: City[][], discards: City[] }> {
+class InfectionsContainer extends React.Component<{ controller: Controller }, { filter: string, groups: City[][], discards: City[] }> {
 
     private mounted: boolean = false;
 
@@ -16,6 +16,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
     constructor(props: { controller: Controller }) {
         super(props)
         this.state = {
+            filter: "all",
             groups: this.props.controller.getCityGroups(),
             discards: this.props.controller.getDiscards()
         };
@@ -39,16 +40,44 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
             });
         } else {
             this.state = {
+                filter: "all",
                 groups: this.props.controller.getCityGroups(),
                 discards: this.props.controller.getDiscards()
             };
         }
+    }
+
+    private shouldShow(cityColor: string): boolean {
+        if (this.state.filter === "all") {
+            return true;
+        }
+
+        switch (cityColor) {
+            case "dark":
+                return this.state.filter === "black";
+            case "danger":
+                return this.state.filter === "red";
+            case "primary":
+                return this.state.filter === "blue";
+            case "warning":
+                return this.state.filter === "yellow";
+        }
+        return false;
     }
   
     public render() {
         const hasDiscards = this.state.discards.length > 0;
         return (
             <div>
+                <IonToolbar>
+                    <IonSegment value={this.state.filter} onIonChange={e => { this.setState({filter: e.detail.value as string })}}>
+                        <IonSegmentButton value="all">all</IonSegmentButton>
+                        <IonSegmentButton value="black">black</IonSegmentButton>
+                        <IonSegmentButton value="blue">blue</IonSegmentButton>
+                        <IonSegmentButton value="red">red</IonSegmentButton>
+                        <IonSegmentButton value="yellow">yellow</IonSegmentButton>
+                    </IonSegment>
+                </IonToolbar>
                 <IonGrid>
                     <IonRow>
                         <IonCol></IonCol>
@@ -65,7 +94,10 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                 </IonGrid>
                 <IonList>
                 {hasDiscards && <IonItemDivider sticky>Discards</IonItemDivider>}
-                {hasDiscards && this.state.discards.map((card, index) => {
+                    {hasDiscards && this.state.discards.map((card, index) => {
+                        if (!this.shouldShow(getColor(card))) {
+                            return <div key={index}></div>
+                        }
                     const id = `discard-${index}`;
                     return <IonItemSliding id={id} key={index}>
                         <CityItem city={card} onClick={undefined}/>
@@ -91,6 +123,9 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     return <div key={index}>
                         <IonItemDivider sticky>{name}</IonItemDivider>
                         {group.map((city, index) => {
+                            if (!this.shouldShow(getColor(city))) {
+                                return <div key={index}></div>
+                            }
                             return <CityItem key={index} city={city} onClick={() => {
                                 this.props.controller.drawInfectionDeck(city);
                                 this.updateState();
