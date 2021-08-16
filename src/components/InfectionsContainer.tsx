@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonButton, IonCheckbox, IonLabel, IonSelect, IonSelectOption, IonToolbar, IonSegment, IonSegmentButton, IonButtons } from '@ionic/react';
 import './InfectionsContainer.css';
-import { City, getColor } from '../service/city';
+import { City, getColorS1 } from '../service/city';
 import { Controller } from '../controller/controller';
 import CityItem from './CityItem';
 
@@ -95,7 +95,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                 <IonList>
                 {hasDiscards && <IonItemDivider sticky>Discards</IonItemDivider>}
                     {hasDiscards && this.state.discards.map((card, index) => {
-                        if (!this.shouldShow(getColor(card))) {
+                        if (!this.shouldShow(getColorS1(card))) {
                             return <div key={index}></div>
                         }
                     const id = `discard-${index}`;
@@ -123,7 +123,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     return <div key={index}>
                         <IonItemDivider sticky>{name}</IonItemDivider>
                         {group.map((city, index) => {
-                            if (!this.shouldShow(getColor(city))) {
+                            if (!this.shouldShow(getColorS1(city))) {
                                 return <div key={index}></div>
                             }
                             return <CityItem key={index} city={city} onClick={() => {

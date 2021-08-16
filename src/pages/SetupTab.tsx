@@ -2,11 +2,15 @@ import React from 'react';
 import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonItem, IonSelect, IonSelectOption, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { ControllerProps } from "../controller/controller";
 
-class SetupTab extends React.Component<ControllerProps, { playerCount: number, eventCards: number, epidemicCards: number }> {
+class SetupTab extends React.Component<ControllerProps, { season: 0 | 1, playerCount: number, eventCards: number, epidemicCards: number }> {
 
     constructor(props: ControllerProps) {
         super(props)
-        this.state = { playerCount: 2, eventCards: 4, epidemicCards: 5 };
+        this.state = { season: 0, playerCount: 2, eventCards: 4, epidemicCards: 5 };
+    }
+
+    private getDangerCardText(): string {
+        return this.state.season === 0 ? "Threat Cards" : "Epidemic Cards";
     }
 
     public render() {
@@ -25,9 +29,19 @@ class SetupTab extends React.Component<ControllerProps, { playerCount: number, e
                     </IonHeader>
                     <IonList>
                         <IonItem>
+                            <IonLabel>Season</IonLabel>
+                            <IonSelect value={String(this.state.season)} interface="popover" onIonChange={e => {
+                                this.setState({ season: Number(e.detail.value) as any });
+                            }}>
+                                <IonSelectOption value="0">0</IonSelectOption>
+                                <IonSelectOption value="1">1</IonSelectOption>
+                            </IonSelect>
+                        </IonItem>
+
+                        <IonItem>
                             <IonLabel>Player Count</IonLabel>
                             <IonSelect value={String(this.state.playerCount)} interface="popover" onIonChange={e => {
-                                this.setState({ playerCount: Number(e.detail.value) })
+                                this.setState({ playerCount: Number(e.detail.value) });
                             }}>
                                 <IonSelectOption value="1">1</IonSelectOption>
                                 <IonSelectOption value="2">2</IonSelectOption>
@@ -40,7 +54,7 @@ class SetupTab extends React.Component<ControllerProps, { playerCount: number, e
                         <IonItem>
                             <IonLabel>Event Cards</IonLabel>
                             <IonSelect value={String(this.state.eventCards)} interface="popover" onIonChange={e => {
-                                this.setState({ eventCards: Number(e.detail.value) })
+                                this.setState({ eventCards: Number(e.detail.value) });
                             }}>
                                 <IonSelectOption value="0">0</IonSelectOption>
                                 <IonSelectOption value="1">1</IonSelectOption>
@@ -54,9 +68,9 @@ class SetupTab extends React.Component<ControllerProps, { playerCount: number, e
                             </IonSelect>
                         </IonItem>
                         <IonItem>
-                            <IonLabel>Epidemic Cards</IonLabel>
+                            <IonLabel>{this.getDangerCardText()}</IonLabel>
                             <IonSelect value={String(this.state.epidemicCards)} interface="popover" onIonChange={e => {
-                                this.setState({ epidemicCards: Number(e.detail.value) })
+                                this.setState({ epidemicCards: Number(e.detail.value) });
                             }}>
                                 <IonSelectOption value="4">4</IonSelectOption>
                                 <IonSelectOption value="5">5</IonSelectOption>
