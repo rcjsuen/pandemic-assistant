@@ -1,6 +1,5 @@
-import { IonActionSheet, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import EpidemicsContainer from '../components/EpidemicsContainer';
-import './EpidemicsTab.css';
 import { ControllerProps } from "../controller/controller";
 
 const EpidemicsTab: React.FC<ControllerProps> = ({controller}) => {

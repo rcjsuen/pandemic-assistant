@@ -1,7 +1,6 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import InfectionsContainer from '../components/InfectionsContainer';
 import { ControllerProps } from "../controller/controller";
-import './InfectionsTab.css';
 
 const InfectionsTab: React.FC<ControllerProps> = ({controller}) => {
   return (

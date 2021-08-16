@@ -1,6 +1,5 @@
 import React from 'react';
 import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonItem, IonSelect, IonSelectOption, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import './SetupTab.css';
 import { ControllerProps } from "../controller/controller";
 
 class SetupTab extends React.Component<ControllerProps, { playerCount: number, eventCards: number, epidemicCards: number }> {
