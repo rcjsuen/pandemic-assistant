@@ -71,6 +71,119 @@ export enum City {
     SaoPaulo = "SaoPaulo"
 }
 
+export function getCities(season: number): City[] {
+    if (season === 0) {
+        return [
+            City.SanFrancisco,
+            City.LosAngeles,
+            City.Toronto,
+            City.NewYork,
+            City.Washington,
+            City.Atlanta,
+            City.MexicoCity,
+            City.Havana,
+
+            City.Bogota,
+            City.Lima,
+            City.SaoPaolo,
+            City.BuenosAires,
+            City.Santiago,
+
+            City.Lagos,
+            City.Algiers,
+            City.Cairo,
+            City.Khartoum,
+            City.Leopoldville,
+            City.Johannesburg,
+
+            City.London,
+            City.Madrid,
+            City.Paris,
+            City.Rome,
+            City.Istanbul,
+            City.EastBerlin,
+            City.Prague,
+            City.Kiev,
+            City.Warsaw,
+            City.Leningrad,
+            City.Moscow,
+
+            City.Novosibirsk,
+            City.Peking,
+            City.Pyongyang,
+            City.Shanghai,
+            City.Baghdad,
+            City.Riyadh,
+            City.Karachi,
+            City.Delhi,
+            City.Bombay,
+            City.Calcutta,
+            City.Hanoi,
+            City.Saigon,
+            City.Bangkok,
+
+            City.Tokyo,
+            City.Osaka,
+            City.Manila,
+            City.Jakarta,
+            City.Sydney,
+        ];
+    }
+    return [
+        City.SanFrancisco,
+        City.Chicago,
+        City.Montreal,
+        City.Atlanta,
+        City.NewYork,
+        City.WashingtonDC,
+        City.London,
+        City.Paris,
+        City.Madrid,
+        City.Essen,
+        City.StPetersburg,
+        City.Milan,
+
+        City.LosAngeles,
+        City.Miami,
+        City.MexicoCity,
+        City.Bogota,
+        City.SaoPaolo,
+        City.BuenosAires,
+        City.Lima,
+        City.Santiago,
+        City.Lagos,
+        City.Kinshasa,
+        City.Johannesburg,
+        City.Khartoum,
+
+        City.Moscow,
+        City.Algiers,
+        City.Riyadh,
+        City.Baghdad,
+        City.Tehran,
+        City.Cairo,
+        City.Istanbul,
+        City.Karachi,
+        City.Delhi,
+        City.Mumbai,
+        City.Chennai,
+        City.Kolkata,
+
+        City.Beijing,
+        City.Shanghai,
+        City.HongKong,
+        City.Taipei,
+        City.Bangkok,
+        City.Manila,
+        City.Jakarta,
+        City.HoChiMinhCity,
+        City.Seoul,
+        City.Tokyo,
+        City.Osaka,
+        City.Sydney,
+    ];
+}
+
 export function toFlagS0(city: City): string {
     switch (city) {
         case City.Algiers:
@@ -126,6 +239,62 @@ export function toFlagS0(city: City): string {
             return "☭";
     }
     return "";
+}
+
+export function getColorS0(city: City): "danger" | "dark" | "primary" {
+    switch (city) {
+        case City.Algiers:
+        case City.Atlanta:
+        case City.Istanbul:
+        case City.Johannesburg:
+        case City.London:
+        case City.LosAngeles:
+        case City.NewYork:
+        case City.Paris:
+        case City.Rome:
+        case City.Saigon:
+        case City.Sydney:
+        case City.Toronto:
+        case City.Washington:
+            return "primary";
+        case City.Bangkok:
+        case City.Bogota:
+        case City.Bombay:
+        case City.Calcutta:
+        case City.Delhi:
+        case City.BuenosAires:
+        case City.Jakarta:
+        case City.Karachi:
+        case City.Khartoum:
+        case City.Lagos:
+        case City.Leopoldville:
+        case City.Lima:
+        case City.Madrid:
+        case City.Manila:
+        case City.MexicoCity:
+        case City.Osaka:
+        case City.Riyadh:
+        case City.SaoPaolo:
+        case City.Santiago:
+        case City.Tokyo:
+            return "dark";
+        case City.Baghdad:
+        case City.Cairo:
+        case City.EastBerlin:
+        case City.Havana:
+        case City.Hanoi:
+        case City.Kiev:
+        case City.Leningrad:
+        case City.Moscow:
+        case City.Novosibirsk:
+        case City.Peking:
+        case City.Prague:
+        case City.Pyongyang:
+        case City.Shanghai:
+        case City.Warsaw:
+            return "danger";
+    }
+    return "dark";
 }
 
 export function getColorS1(city: City): "danger" | "warning" | "dark" | "primary" {
@@ -196,26 +365,33 @@ export function toFlag(city: City) {
         case City.Miami:
         case City.NewYork:
         case City.SanFrancisco:
+        case City.Washington:
         case City.WashingtonDC:
             return "🇺🇸";
         case City.Montreal:
+        case City.Toronto:
             return "🇨🇦";
         case City.London:
             return "🇬🇧";
         case City.Madrid:
             return "🇪🇸";
+        case City.EastBerlin:
         case City.Essen:
             return "🇩🇪";
+        case City.Leningrad:
         case City.Moscow:
+        case City.Novosibirsk:
         case City.StPetersburg:
             return "🇷🇺";
         case City.Milan:
+        case City.Rome:
             return "🇮🇹";
         case City.MexicoCity:
             return "🇲🇽";
         case City.Bogota:
             return "🇨🇴";
         case City.SaoPaolo:
+        case City.SaoPaulo:
             return "🇧🇷";
         case City.BuenosAires:
             return "🇦🇷";
@@ -225,6 +401,7 @@ export function toFlag(city: City) {
             return "🇨🇱";
         case City.Lagos:
             return "🇳🇬";
+        case City.Leopoldville:
         case City.Kinshasa:
             return "🇨🇩";
         case City.Johannesburg:
@@ -245,12 +422,25 @@ export function toFlag(city: City) {
             return "🇹🇷";
         case City.Karachi:
             return "🇵🇰";
+        case City.Bombay:
         case City.Delhi:
         case City.Mumbai:
         case City.Chennai:
+        case City.Calcutta:
         case City.Kolkata:
             return "🇮🇳";
+        case City.Havana:
+            return "🇨🇺";
+        case City.Kiev:
+            return "🇺🇦";
+        case City.Prague:
+            return "🇨🇿";
+        case City.Pyongyang:
+            return "🇰🇵";
+        case City.Warsaw:
+            return "🇵🇱";
         case City.Beijing:
+        case City.Peking:
         case City.Shanghai:
             return "🇨🇳";
         case City.HongKong:
@@ -263,7 +453,9 @@ export function toFlag(city: City) {
             return "🇵🇭";
         case City.Jakarta:
             return "🇮🇩";
+        case City.Hanoi:
         case City.HoChiMinhCity:
+        case City.Saigon:
             return "🇻🇳";
         case City.Seoul:
             return "🇰🇷";

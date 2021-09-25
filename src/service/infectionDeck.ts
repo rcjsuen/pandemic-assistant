@@ -1,4 +1,4 @@
-import { City } from "./city";
+import { City, getCities } from "./city";
 
 export class InfectionDeck {
 
@@ -6,10 +6,10 @@ export class InfectionDeck {
 
     private discards: City[] = [];
 
-    constructor() {
+    constructor(season: number) {
         this.groups = [[]];
-        for (const city of Object.keys(City)) {
-            this.groups[0].push(city as City);
+        for (const city of getCities(season)) {
+            this.groups[0].push(city);
         }
         this.groups[0].sort((a, b) => {
             return a.localeCompare(b);

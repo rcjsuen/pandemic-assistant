@@ -83,7 +83,7 @@ class SetupTab extends React.Component<ControllerProps, { season: 0 | 1, playerC
                                 <IonCol></IonCol>
                                 <IonCol>
                                     <IonButton expand="block" onClick={() => {
-                                        this.props.controller.setup(this.state.playerCount, this.state.eventCards, this.state.epidemicCards);
+                                        this.props.controller.setup(this.state.season, this.state.playerCount, this.state.eventCards, this.state.epidemicCards);
                                     }}>
                                         Setup
                                     </IonButton>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonButton, IonCheckbox, IonLabel, IonSelect, IonSelectOption, IonToolbar, IonSegment, IonSegmentButton, IonButtons } from '@ionic/react';
 import './InfectionsContainer.css';
-import { City, getColorS1 } from '../service/city';
+import { City, getColorS0, getColorS1 } from '../service/city';
 import { Controller } from '../controller/controller';
 import CityItem from './CityItem';
 
-class InfectionsContainer extends React.Component<{ controller: Controller }, { filter: string, groups: City[][], discards: City[] }> {
+class InfectionsContainer extends React.Component<{ controller: Controller, season: number }, { filter: string, groups: City[][], discards: City[] }> {
 
     private mounted: boolean = false;
 
@@ -13,7 +13,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
         this.updateState();
     };
 
-    constructor(props: { controller: Controller }) {
+    constructor(props: { controller: Controller, season: number }) {
         super(props)
         this.state = {
             filter: "all",
@@ -75,7 +75,9 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                         <IonSegmentButton value="black">black</IonSegmentButton>
                         <IonSegmentButton value="blue">blue</IonSegmentButton>
                         <IonSegmentButton value="red">red</IonSegmentButton>
-                        <IonSegmentButton value="yellow">yellow</IonSegmentButton>
+                        {
+                            this.props.season === 1 && <IonSegmentButton value="yellow">yellow</IonSegmentButton>
+                        }
                     </IonSegment>
                 </IonToolbar>
                 <IonGrid>
@@ -95,12 +97,13 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                 <IonList>
                 {hasDiscards && <IonItemDivider sticky>Discards</IonItemDivider>}
                     {hasDiscards && this.state.discards.map((card, index) => {
-                        if (!this.shouldShow(getColorS1(card))) {
+                        const color = this.props.season === 0 ? getColorS0(card) : getColorS1(card);
+                        if (!this.shouldShow(color)) {
                             return <div key={index}></div>
                         }
                     const id = `discard-${index}`;
                     return <IonItemSliding id={id} key={index}>
-                        <CityItem city={card} onClick={undefined}/>
+                        <CityItem season={this.props.season} city={card} onClick={undefined}/>
                         <IonItemOptions side="end">
                             {/* remove a card via Resilient Population */}
                             <IonItemOption color="danger" onClick={() => {
@@ -123,10 +126,11 @@ class InfectionsContainer extends React.Component<{ controller: Controller }, { 
                     return <div key={index}>
                         <IonItemDivider sticky>{name}</IonItemDivider>
                         {group.map((city, index) => {
-                            if (!this.shouldShow(getColorS1(city))) {
+                            const color = this.props.season === 0 ? getColorS0(city) : getColorS1(city);
+                            if (!this.shouldShow(color)) {
                                 return <div key={index}></div>
                             }
-                            return <CityItem key={index} city={city} onClick={() => {
+                            return <CityItem key={index} season={this.props.season} city={city} onClick={() => {
                                 this.props.controller.drawInfectionDeck(city);
                                 this.updateState();
                             }}/>

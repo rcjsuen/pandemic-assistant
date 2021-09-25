@@ -12,14 +12,17 @@ export class PandemicAssistant {
 
     private epidemicsDrawnIndex: number = 0;
 
+    private season: number = 0;
+
     constructor() {
         this.playerDeck = new PlayerDeck(2, 2, 5);
-        this.infectionDeck = new InfectionDeck();
+        this.infectionDeck = new InfectionDeck(1);
     }
 
-    public setup(playerCount: number, eventCards: number, epidemicCards: number): void {
+    public setup(season: number, playerCount: number, eventCards: number, epidemicCards: number): void {
+        this.season = season;
         this.playerDeck = new PlayerDeck(playerCount, eventCards, epidemicCards);
-        this.infectionDeck = new InfectionDeck();
+        this.infectionDeck = new InfectionDeck(season);
         this.epidemicsDrawn = [];
         for (let i = 0; i < epidemicCards; i++) {
             this.epidemicsDrawn.push(false);
@@ -69,6 +72,10 @@ export class PandemicAssistant {
 
     public getEpidemicsDrawn(): boolean[] {
         return this.epidemicsDrawn;
+    }
+
+    public getSeason(): number {
+        return this.season;
     }
 }
 

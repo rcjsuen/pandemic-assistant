@@ -53,8 +53,8 @@ export class Controller {
         this.notifyHandlers(this.infectionDeckHandlers);
     }
 
-    public setup(playerCount: number, eventCards: number, epidemicCards: number): void {
-        this.assistant.setup(playerCount, eventCards, epidemicCards);
+    public setup(season: number, playerCount: number, eventCards: number, epidemicCards: number): void {
+        this.assistant.setup(season, playerCount, eventCards, epidemicCards);
         this.notifyPlayerDeckHandlers();
         this.notifyInfectionDeckHandlers();
     }
@@ -98,6 +98,10 @@ export class Controller {
 
     public getMaxRemainder(): number {
         return this.assistant.getMaxRemainder();
+    }
+
+    public getSeason(): number {
+        return this.assistant.getSeason();
     }
 
 }
