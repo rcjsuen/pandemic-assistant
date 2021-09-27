@@ -15,13 +15,13 @@ export class PandemicAssistant {
     private season: number = 0;
 
     constructor() {
-        this.playerDeck = new PlayerDeck(2, 2, 5);
+        this.playerDeck = new PlayerDeck(2, 2, 5, 0);
         this.infectionDeck = new InfectionDeck(1);
     }
 
-    public setup(season: number, playerCount: number, eventCards: number, epidemicCards: number): void {
+    public setup(season: number, playerCount: number, eventCards: number, epidemicCards: number, objectiveCards: number): void {
         this.season = season;
-        this.playerDeck = new PlayerDeck(playerCount, eventCards, epidemicCards);
+        this.playerDeck = new PlayerDeck(playerCount, eventCards, epidemicCards, objectiveCards);
         this.infectionDeck = new InfectionDeck(season);
         this.epidemicsDrawn = [];
         for (let i = 0; i < epidemicCards; i++) {

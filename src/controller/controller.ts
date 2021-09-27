@@ -53,8 +53,8 @@ export class Controller {
         this.notifyHandlers(this.infectionDeckHandlers);
     }
 
-    public setup(season: number, playerCount: number, eventCards: number, epidemicCards: number): void {
-        this.assistant.setup(season, playerCount, eventCards, epidemicCards);
+    public setup(season: number, playerCount: number, eventCards: number, epidemicCards: number, objectiveCards: number): void {
+        this.assistant.setup(season, playerCount, eventCards, epidemicCards, objectiveCards);
         this.notifyPlayerDeckHandlers();
         this.notifyInfectionDeckHandlers();
     }

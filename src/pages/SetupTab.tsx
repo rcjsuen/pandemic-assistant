@@ -1,12 +1,12 @@
 import React from 'react';
-import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonItem, IonSelect, IonSelectOption, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonInput, IonItem, IonSelect, IonSelectOption, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { ControllerProps } from "../controller/controller";
 
-class SetupTab extends React.Component<ControllerProps, { season: 0 | 1, playerCount: number, eventCards: number, epidemicCards: number }> {
+class SetupTab extends React.Component<ControllerProps, { season: 0 | 1, playerCount: number, eventCards: number, epidemicCards: number, objectiveCards: number }> {
 
     constructor(props: ControllerProps) {
         super(props)
-        this.state = { season: 0, playerCount: 2, eventCards: 4, epidemicCards: 5 };
+        this.state = { season: 0, playerCount: 2, eventCards: 4, epidemicCards: 5, objectiveCards: 0 };
     }
 
     private getDangerCardText(): string {
@@ -67,6 +67,12 @@ class SetupTab extends React.Component<ControllerProps, { season: 0 | 1, playerC
                                 <IonSelectOption value="8">8</IonSelectOption>
                             </IonSelect>
                         </IonItem>
+                        {this.state.season === 0 &&
+                            <IonItem>
+                                <IonLabel>Objective Cards</IonLabel>
+                            <IonInput type="number" value={this.state.objectiveCards} placeholder="Enter Number" min="0" onIonChange={e => this.setState({ objectiveCards: Number(e.detail.value) })}></IonInput>
+                            </IonItem>
+                        }
                         <IonItem>
                             <IonLabel>{this.getDangerCardText()}</IonLabel>
                             <IonSelect value={String(this.state.epidemicCards)} interface="popover" onIonChange={e => {
@@ -83,7 +89,7 @@ class SetupTab extends React.Component<ControllerProps, { season: 0 | 1, playerC
                                 <IonCol></IonCol>
                                 <IonCol>
                                     <IonButton expand="block" onClick={() => {
-                                        this.props.controller.setup(this.state.season, this.state.playerCount, this.state.eventCards, this.state.epidemicCards);
+                                        this.props.controller.setup(this.state.season, this.state.playerCount, this.state.eventCards, this.state.epidemicCards, this.state.objectiveCards);
                                     }}>
                                         Setup
                                     </IonButton>

@@ -12,11 +12,11 @@ export class PlayerDeck {
 
     private currentBucket: number;
 
-    constructor(private playerCount: number, private eventCards: number, private epidemicCards: number) {
-        let total = 48 + this.eventCards + this.epidemicCards;
+    constructor(private playerCount: number, eventCards: number, epidemicCards: number, objectiveCards: number) {
+        let total = 48 + eventCards + epidemicCards - objectiveCards;
         this.deck = total - this.getStartingRemoval();
         let remainder = this.deck;
-        let epidemics = this.epidemicCards;
+        let epidemics = epidemicCards;
         this.counts = [];
         while (epidemics > 0) {
             let split = Math.floor(remainder / epidemics);
