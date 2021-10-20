@@ -1,19 +1,9 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import {
-    IonApp,
-    IonIcon,
-    IonLabel,
-    IonRouterOutlet,
-    IonTabBar,
-    IonTabButton,
-    IonTabs,
-} from '@ionic/react';
+import { Route } from 'react-router-dom';
+import { IonApp } from '@ionic/react';
 import { IonReactHashRouter } from '@ionic/react-router';
-import { globeOutline, settingsOutline, warningOutline } from 'ionicons/icons';
-import EpidemicsTab from './pages/EpidemicsTab';
-import InfectionsTab from './pages/InfectionsTab';
-import SetupTab from './pages/SetupTab';
+import MainTabs from './pages/MainTabs';
+import SetupPage from './pages/SetupPage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -42,36 +32,10 @@ class App extends React.Component {
     public render(): JSX.Element {
         return <IonApp>
             <IonReactHashRouter>
-                <IonTabs>
-                    <IonRouterOutlet>
-                        <Route exact path="/setup">
-                            <SetupTab controller={controller} />
-                        </Route>
-                        <Route exact path="/epidemics">
-                            <EpidemicsTab controller={controller} />
-                        </Route>
-                        <Route exact path="/infections">
-                            <InfectionsTab controller={controller} />
-                        </Route>
-                        <Route exact path="/">
-                            <Redirect to="/setup" />
-                        </Route>
-                    </IonRouterOutlet>
-                    <IonTabBar slot="bottom">
-                        <IonTabButton tab="setup" href="/setup">
-                            <IonIcon icon={settingsOutline} />
-                            <IonLabel>Setup</IonLabel>
-                        </IonTabButton>
-                        <IonTabButton tab="epidemics" href="/epidemics">
-                            <IonIcon icon={warningOutline} />
-                            <IonLabel>Epidemics / Incidents</IonLabel>
-                        </IonTabButton>
-                        <IonTabButton tab="infections" href="/infections">
-                            <IonIcon icon={globeOutline} />
-                            <IonLabel>Infections / Threats</IonLabel>
-                        </IonTabButton>
-                    </IonTabBar>
-                </IonTabs>
+                <Route path="/" component={SetupPage} exact />
+                <Route path="/setup" component={MainTabs} exact />
+                <Route path="/epidemics" component={MainTabs} exact />
+                <Route path="/infections" component={MainTabs} exact />
             </IonReactHashRouter>
         </IonApp>
     }

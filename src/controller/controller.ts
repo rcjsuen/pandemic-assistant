@@ -1,5 +1,5 @@
 import { City } from "../service/city";
-import { PandemicAssistant } from "../service/pandemicAssistant";
+import { PandemicAssistant, SeasonZeroConfiguration } from "../service/pandemicAssistant";
 
 export interface ControllerProps {
     controller: Controller;
@@ -53,8 +53,14 @@ export class Controller {
         this.notifyHandlers(this.infectionDeckHandlers);
     }
 
-    public setup(season: number, playerCount: number, eventCards: number, epidemicCards: number, objectiveCards: number): void {
-        this.assistant.setup(season, playerCount, eventCards, epidemicCards, objectiveCards);
+    public setup(season: number,
+        playerCount: number,
+        eventCards: number,
+        epidemicCards: number,
+        objectiveCards: number,
+        seasonZeroConfiguration: SeasonZeroConfiguration
+    ): void {
+        this.assistant.setup(season,playerCount, eventCards, epidemicCards, objectiveCards, seasonZeroConfiguration);
         this.notifyPlayerDeckHandlers();
         this.notifyInfectionDeckHandlers();
     }

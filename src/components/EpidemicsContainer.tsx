@@ -58,6 +58,7 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
         const allDrawn = this.state.epidemics.length === 0 ? false : this.state.epidemics.reduce((previous, current) => {
             return previous && current;
         });
+        const label = this.props.controller.getSeason() === 0 ? "Escalation" : "Epidemic";
         return (
             <IonList>
                 <IonItem>
@@ -65,15 +66,15 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
                     <IonNote slot="end" color="dark">{this.state.playerCards}</IonNote>
                 </IonItem>
                 {!allDrawn && <IonItem>
-                    <IonLabel>Cards to Next Epidemic</IonLabel>
+                    <IonLabel>Cards to Next {label}</IonLabel>
                     <IonNote slot="end" color="dark">{this.state.minCards === 0 && this.state.maxCards === 0 ? "0" : `${this.state.minCards}-${this.state.maxCards}`}</IonNote>
                 </IonItem>}
                 {!allDrawn && <IonItem>
-                    <IonLabel>Rounds to Next Epidemic</IonLabel>
+                    <IonLabel>Rounds to Next {label}</IonLabel>
                     <IonNote slot="end" color="dark">{minRounds === 0 && maxRounds === 0 ? "0" : `${minRounds}-${maxRounds}`}</IonNote>
                 </IonItem>}
                 {this.state.epidemics.map((drawn, index) => {
-                    return <EpidemicItem key={index} drawn={drawn} position={index + 1} />
+                    return <EpidemicItem label={label} key={index} drawn={drawn} position={index + 1} />
                 })}
                 {!allDrawn && <IonGrid>
                     <IonRow>

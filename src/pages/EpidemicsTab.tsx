@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import EpidemicsContainer from '../components/EpidemicsContainer';
 import { ControllerProps } from "../controller/controller";
 
-const EpidemicsTab: React.FC<ControllerProps> = ({controller}) => {
+const EpidemicsTab: React.FC<ControllerProps> = ({ controller }) => {
   return (
     <IonPage>
       <IonHeader>

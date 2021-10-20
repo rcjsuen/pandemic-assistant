@@ -1,4 +1,5 @@
 import { City, getCities } from "./city";
+import { SeasonZeroConfiguration } from "./pandemicAssistant";
 
 export class InfectionDeck {
 
@@ -6,11 +7,17 @@ export class InfectionDeck {
 
     private discards: City[] = [];
 
-    constructor(season: number) {
+    constructor(season: number, seasonZeroConfiguration: SeasonZeroConfiguration) {
         this.groups = [[]];
         for (const city of getCities(season)) {
             this.groups[0].push(city);
         }
+        seasonZeroConfiguration.africaThreatCards.forEach((city) => {
+            this.groups[0].push(city);
+        });
+        seasonZeroConfiguration.southAmericaThreatCards.forEach((city) => {
+            this.groups[0].push(city);
+        });
         this.groups[0].sort((a, b) => {
             return a.localeCompare(b);
         });

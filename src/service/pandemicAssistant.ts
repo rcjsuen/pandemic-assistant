@@ -2,6 +2,11 @@ import { City } from "./city";
 import { InfectionDeck } from "./infectionDeck";
 import { PlayerDeck } from "./playerDeck";
 
+export interface SeasonZeroConfiguration {
+    africaThreatCards: Set<City>;
+    southAmericaThreatCards: Set<City>;
+}
+
 export class PandemicAssistant {
 
     private playerDeck: PlayerDeck;
@@ -16,13 +21,19 @@ export class PandemicAssistant {
 
     constructor() {
         this.playerDeck = new PlayerDeck(2, 2, 5, 0);
-        this.infectionDeck = new InfectionDeck(1);
+        this.infectionDeck = new InfectionDeck(1, { africaThreatCards: new Set(), southAmericaThreatCards: new Set() });
     }
 
-    public setup(season: number, playerCount: number, eventCards: number, epidemicCards: number, objectiveCards: number): void {
+    public setup(season: number,
+        playerCount: number,
+        eventCards: number,
+        epidemicCards: number,
+        objectiveCards: number,
+        seasonZeroConfiguration: SeasonZeroConfiguration
+    ): void {
         this.season = season;
         this.playerDeck = new PlayerDeck(playerCount, eventCards, epidemicCards, objectiveCards);
-        this.infectionDeck = new InfectionDeck(season);
+        this.infectionDeck = new InfectionDeck(season, seasonZeroConfiguration);
         this.epidemicsDrawn = [];
         for (let i = 0; i < epidemicCards; i++) {
             this.epidemicsDrawn.push(false);
