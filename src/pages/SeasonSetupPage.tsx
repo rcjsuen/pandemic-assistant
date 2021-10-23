@@ -6,7 +6,7 @@ import { City, getAfricaInfections, getSouthAmericaInfections } from '../service
 import { SeasonZeroConfiguration } from '../service/pandemicAssistant';
 import StartButton from '../components/StartButton';
 
-interface SeasonSetupState {
+export interface SeasonSetupState {
     season: 0 | 1;
     playerCount: number;
     month: number;
@@ -72,29 +72,6 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
         for (const city of cities) {
             threatCards.add(city as any);
         }
-    }
-
-    private serialize(): GameConfiguration {
-        const africa: string[] = [];
-        this.state.seasonZeroConfiguration.africaThreatCards.forEach((city) => {
-            africa.push(city.getName());
-        });
-        const southAmerica: string[] = [];
-        this.state.seasonZeroConfiguration.southAmericaThreatCards.forEach((city) => {
-            southAmerica.push(city.getName());
-        });
-        return {
-            season: this.state.season,
-            playerCount: this.state.playerCount,
-            month: this.state.month,
-            eventCards: this.state.eventCards,
-            epidemicCards: this.state.epidemicCards,
-            objectiveCards: this.state.objectiveCards,
-            seasonZeroConfiguration: {
-                africaThreatCards: africa,
-                southAmericaThreatCards: southAmerica
-            }
-        };
     }
 
     public render() {
@@ -180,7 +157,7 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                             <IonRow>
                                 <IonCol></IonCol>
                                 <IonCol>
-                                    <StartButton config={ this.serialize() }></StartButton>
+                                    <StartButton config={ this.state }></StartButton>
                                 </IonCol>
                                 <IonCol></IonCol>
                             </IonRow>
