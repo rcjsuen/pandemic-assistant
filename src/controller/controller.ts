@@ -53,14 +53,16 @@ export class Controller {
         this.notifyHandlers(this.infectionDeckHandlers);
     }
 
-    public setup(season: number,
+    public setup(
+        season: 0 | 1,
+        month: number,
         playerCount: number,
         eventCards: number,
         epidemicCards: number,
         objectiveCards: number,
         seasonZeroConfiguration: SeasonZeroConfiguration
     ): void {
-        this.assistant.setup(season,playerCount, eventCards, epidemicCards, objectiveCards, seasonZeroConfiguration);
+        this.assistant.setup(season, month, playerCount, eventCards, epidemicCards, objectiveCards, seasonZeroConfiguration);
         this.notifyPlayerDeckHandlers();
         this.notifyInfectionDeckHandlers();
     }
@@ -70,11 +72,11 @@ export class Controller {
         this.notifyPlayerDeckHandlers();
     }
 
-    public drawInfectionDeck(city: string): void {
+    public drawInfectionDeck(city: City): void {
         this.assistant.drawInfectionDeck(city);
     }
 
-    public removeInfectionCard(city: string): void {
+    public removeInfectionCard(city: City): void {
         this.assistant.removeInfectionCard(city);
     }
 
@@ -106,8 +108,12 @@ export class Controller {
         return this.assistant.getMaxRemainder();
     }
 
-    public getSeason(): number {
+    public getSeason(): 0 | 1 {
         return this.assistant.getSeason();
+    }
+
+    public getMonth(): number {
+        return this.assistant.getMonth();
     }
 
 }

@@ -1,606 +1,232 @@
-export enum City {
-    SanFrancisco = "SanFrancisco",
-    Chicago = "Chicago",
-    Montreal = "Montreal",
-    Atlanta = "Atlanta",
-    NewYork = "NewYork",
-    WashingtonDC = "WashingtonDC",
-    London = "London",
-    Paris = "Paris",
-    Madrid = "Madrid",
-    Essen = "Essen",
-    StPetersburg = "StPetersburg",
-    Milan = "Milan",
+export class City {
+    constructor(
+        private name: string,
+        private flag: string,
+        private colours: ("dark" | "danger" | "primary" | "warning")[],
+        private region: "Africa" | "Asia" | "Europe" | "North America" | "Pacific Rim" | "South America",
+        private infected: boolean = false
+    ) { }
 
-    LosAngeles = "LosAngeles",
-    Miami = "Miami",
-    MexicoCity = "MexicoCity",
-    Bogota = "Bogota",
-    SaoPaolo = "SaoPaolo",
-    BuenosAires = "BuenosAires",
-    Lima = "Lima",
-    Santiago = "Santiago",
-    Lagos = "Lagos",
-    Kinshasa = "Kinshasa",
-    Johannesburg = "Johannesburg",
-    Khartoum = "Khartoum",
+    public getName(): string {
+        return this.name;
+    }
 
-    Moscow = "Moscow",
-    Algiers = "Algiers",
-    Riyadh = "Riyadh",
-    Baghdad = "Baghdad",
-    Tehran = "Tehran",
-    Cairo = "Cairo",
-    Istanbul = "Istanbul",
-    Karachi = "Karachi",
-    Delhi = "Delhi",
-    Mumbai = "Mumbai",
-    Chennai = "Chennai",
-    Kolkata = "Kolkata",
+    public getLabel(): string {
+        if (this.infected) {
+            return `☣️ ${this.name} (${this.region})`;
+        }
+        return `${this.flag} ${this.name} (${this.region})`;
+    }
 
-    Beijing = "Beijing",
-    Shanghai = "Shanghai",
-    HongKong = "HongKong",
-    Taipei = "Taipei",
-    Bangkok = "Bangkok",
-    Manila = "Manila",
-    Jakarta = "Jakarta",
-    HoChiMinhCity = "HoChiMinhCity",
-    Seoul = "Seoul",
-    Tokyo = "Tokyo",
-    Osaka = "Osaka",
-    Sydney = "Sydney",
+    public getColour(season: 0 | 1): "dark" | "danger" | "primary" | "warning" | "success" {
+        if (this.colours.length !== 2) {
+            throw new Error(this.name);
+        }
+        if (this.infected) {
+            return "success";
+        }
+        return this.colours[season];
+    }
 
-    Leopoldville = "Leopoldville",
-    Bombay = "Bombay",
-    Calcutta = "Calcutta",
-    Hanoi = "Hanoi",
-    Novosibirsk = "Novosibirsk",
-    Peking = "Peking",
-    Pyongyang = "Pyongyang",
-    Saigon = "Saigon",
-    EastBerlin = "EastBerlin",
-    Kiev = "Kiev",
-    Leningrad = "Leningrad",
-    Prague = "Prague",
-    Rome = "Rome",
-    Warsaw = "Warsaw",
-    Havana = "Havana",
-    Toronto = "Toronto",
-    Washington = "Washington",
-    SaoPaulo = "SaoPaulo"
+    public infect(): City {
+        return new City(this.name, this.flag, this.colours, this.region, true);
+    }
+
+    public isInfected(): boolean {
+        return this.infected;
+    }
+}
+
+const SAN_FRANCISCO = new City("San Francisco", "🇺🇸", ["primary", "primary"], "North America");
+const CHICAGO = new City("Chicago", "🇺🇸", ["primary", "primary"], "North America");
+const MONTREAL = new City("Montreal", "🇨🇦", ["primary", "primary"], "North America");
+const ATLANTA = new City("Atlanta", "🇺🇸", ["primary", "primary"], "North America");
+const NEW_YORK = new City("New York", "🇺🇸", ["primary", "primary"], "North America");
+const WASHINGTON_DC = new City("Washington DC", "🇺🇸", ["primary", "primary"], "North America");
+const LONDON = new City("London", "🇬🇧", ["primary", "primary"], "Europe");
+const PARIS = new City("Paris", "🇨🇵", ["primary", "primary"], "Europe");
+const MADRID = new City("Madrid", "🇪🇸", ["dark", "primary"], "Europe");
+const ESSEN = new City("Essen", "🇩🇪", ["primary", "primary"], "Europe");
+const ST_PETERSBURG = new City("St. Petersburg", "🇷🇺", ["primary", "primary"], "Europe");
+const MILAN = new City("Milan", "🇮🇹", ["primary", "primary"], "Europe");
+const LOS_ANGELES = new City("Los Angeles", "🇺🇸", ["primary", "warning"], "North America");
+const MIAMI = new City("Miami", "🇺🇸", ["warning", "warning"], "North America");
+const MEXICO_CITY = new City("Mexico City", "🇲🇽", ["dark", "warning"], "North America");
+const BOGOTA = new City("Bogota", "🇨🇴", ["dark", "warning"], "South America");
+const SAO_PAOLO = new City("Sao Paolo", "🇧🇷", ["warning", "warning"], "South America");
+const BUENOS_AIRES = new City("Buenos Aires", "🇦🇷", ["dark", "warning"], "South America");
+const LIMA = new City("Lima", "🇵🇪", ["dark", "warning"], "South America");
+const SANTIAGO = new City("Santiago", "🇨🇱", ["dark", "warning"], "South America");
+const LAGOS = new City("Lagos", "🇳🇬", ["dark", "warning"], "Africa");
+const KINSHASA = new City("Kinshasa", "🇨🇩", ["warning", "warning"], "Africa");
+const JOHANNESBURG = new City("Johannesburg", "🇿🇦", ["primary", "warning"], "Africa");
+const KHARTOUM = new City("Khartoum", "🇸🇩", ["dark", "warning"], "Africa");
+const MOSCOW = new City("Moscow", "🇷🇺", ["danger", "dark"], "Europe");
+const ALGIERS = new City("Algiers", "🇩🇿", ["primary", "dark"], "Africa");
+const RIYADH = new City("Riyadh", "🇸🇦", ["dark", "dark"], "Asia");
+const BAGHDAD = new City("Baghdad", "🇮🇶", ["danger", "dark"], "Asia");
+const TEHRAN = new City("Tehran", "🇮🇷", ["dark", "dark"], "Asia");
+const CAIRO = new City("Cairo", "🇪🇬", ["danger", "dark"], "Asia");
+const ISTANBUL = new City("Istanbul", "🇹🇷", ["primary", "dark"], "Europe");
+const KARACHI = new City("Karachi", "🇵🇰", ["dark", "dark"], "Asia");
+const DELHI = new City("Delhi", "🇮🇳", ["dark", "dark"], "Asia");
+const MUMBAI = new City("Mumbai", "🇮🇳", ["dark", "dark"], "Asia");
+const CHENNAI = new City("Chennai", "🇮🇳", ["dark", "dark"], "Asia");
+const KOLKATA = new City("Kolkata", "🇮🇳", ["dark", "dark"], "Asia");
+const BEIJING = new City("Beijing", "🇨🇳", ["danger", "danger"], "Asia");
+const SHANGHAI = new City("Shanghai", "🇨🇳", ["danger", "danger"], "Asia");
+const HONG_KONG = new City("Hong Kong", "🇭🇰", ["danger", "danger"], "Asia");
+const TAIPEI = new City("Taipei", "🇹🇼", ["danger", "danger"], "Asia");
+const BANGKOK = new City("Bangkok", "🇹🇭", ["dark", "danger"], "Asia");
+const MANILA = new City("Manila", "🇵🇭", ["dark", "danger"], "Pacific Rim");
+const JAKARTA = new City("Jakarta", "🇮🇩", ["dark", "danger"], "Pacific Rim");
+const HO_CHI_MINH_CITY = new City("Ho Chi Minh City", "🇻🇳", ["danger", "danger"], "Pacific Rim");
+const SEOUL = new City("Seoul", "🇰🇷", ["danger", "danger"], "Pacific Rim");
+const TOKYO = new City("Tokyo", "🇯🇵", ["dark", "danger"], "Pacific Rim");
+const OSAKA = new City("Osaka", "🇯🇵", ["dark", "danger"], "Pacific Rim");
+const SYDNEY = new City("Sydney", "🇦🇺", ["primary", "danger"], "Pacific Rim");
+
+const LEOPOLDVILLE = new City("Leopoldville", "🇨🇩", ["danger", "danger"], "Africa");
+const BOMBAY = new City("Bombay", "🇮🇳", ["danger", "danger"], "Asia");
+const CALCUTTA = new City("Calcutta", "🇮🇳", ["dark", "dark"], "Asia");
+const HANOI = new City("Hanoi", "🇻🇳", ["danger", "danger"], "Asia");
+const NOVOSIBIRSK = new City("Novosibirsk", "🇷🇺", ["danger", "danger"], "Asia");
+const PEKING = new City("Peking", "🇨🇳", ["danger", "danger"], "Asia");
+const PYONGYANG = new City("Pyongyang", "🇰🇵", ["danger", "danger"], "Asia");
+const SAIGON = new City("Saigon", "🇻🇳", ["primary", "primary"], "Asia");
+const EAST_BERLIN = new City("East Berlin", "🇩🇪", ["danger", "danger"], "Europe");
+const KIEV = new City("Kiev", "🇺🇦", ["danger", "danger"], "Europe");
+const LENINGRAD = new City("Leningrad", "🇷🇺", ["danger", "danger"], "Europe");
+const PRAGUE = new City("Prague", "🇨🇿", ["danger", "danger"], "Europe");
+const ROME = new City("Rome", "🇮🇹", ["primary", "primary"], "Europe");
+const WARSAW = new City("Warsaw", "🇵🇱", ["danger", "danger"], "Europe");
+const HAVANA = new City("Havana", "🇨🇺", ["danger", "danger"], "North America");
+const TORONTO = new City("Toronto", "🇨🇦", ["primary", "primary"], "North America");
+const WASHINGTON = new City("Washington", "🇺🇸", ["primary", "primary"], "North America");
+const SAO_PAULO = new City("Sao Paulo", "🇧🇷", ["dark", "dark"], "South America");
+
+export function getAfricaInfections(): City[] {
+    return [
+        ALGIERS.infect(),
+        CAIRO.infect(),
+        JOHANNESBURG.infect(),
+        KHARTOUM.infect(),
+        LAGOS.infect(),
+        LEOPOLDVILLE.infect()
+    ];
+}
+
+export function getSouthAmericaInfections(): City[] {
+    return [
+        BOGOTA.infect(),
+        BUENOS_AIRES.infect(),
+        LIMA.infect(),
+        SANTIAGO.infect(),
+        SAO_PAULO.infect()
+    ];
 }
 
 export function getCities(season: number): City[] {
     if (season === 0) {
         return [
-            City.SanFrancisco,
-            City.LosAngeles,
-            City.Toronto,
-            City.NewYork,
-            City.Washington,
-            City.Atlanta,
-            City.MexicoCity,
-            City.Havana,
-
-            City.Bogota,
-            City.Lima,
-            City.SaoPaolo,
-            City.BuenosAires,
-            City.Santiago,
-
-            City.Lagos,
-            City.Algiers,
-            City.Cairo,
-            City.Khartoum,
-            City.Leopoldville,
-            City.Johannesburg,
-
-            City.London,
-            City.Madrid,
-            City.Paris,
-            City.Rome,
-            City.Istanbul,
-            City.EastBerlin,
-            City.Prague,
-            City.Kiev,
-            City.Warsaw,
-            City.Leningrad,
-            City.Moscow,
-
-            City.Novosibirsk,
-            City.Peking,
-            City.Pyongyang,
-            City.Shanghai,
-            City.Baghdad,
-            City.Riyadh,
-            City.Karachi,
-            City.Delhi,
-            City.Bombay,
-            City.Calcutta,
-            City.Hanoi,
-            City.Saigon,
-            City.Bangkok,
-
-            City.Tokyo,
-            City.Osaka,
-            City.Manila,
-            City.Jakarta,
-            City.Sydney,
+            SAN_FRANCISCO,
+            TORONTO,
+            NEW_YORK,
+            LOS_ANGELES,
+            ATLANTA,
+            WASHINGTON,
+            MEXICO_CITY,
+            HAVANA,
+            BOGOTA,
+            LIMA,
+            SAO_PAULO,
+            SANTIAGO,
+            BUENOS_AIRES,
+            LONDON,
+            EAST_BERLIN,
+            PARIS,
+            MADRID,
+            WARSAW,
+            LENINGRAD,
+            MOSCOW,
+            ROME,
+            ISTANBUL,
+            PRAGUE,
+            KIEV,
+            ALGIERS,
+            LAGOS,
+            CAIRO,
+            KHARTOUM,
+            LEOPOLDVILLE,
+            JOHANNESBURG,
+            NOVOSIBIRSK,
+            PEKING,
+            PYONGYANG,
+            DELHI,
+            BAGHDAD,
+            KARACHI,
+            RIYADH,
+            HANOI,
+            CALCUTTA,
+            SHANGHAI,
+            BOMBAY,
+            BANGKOK,
+            SAIGON,
+            OSAKA,
+            TOKYO,
+            SYDNEY,
+            MANILA,
+            JAKARTA
         ];
     }
     return [
-        City.SanFrancisco,
-        City.Chicago,
-        City.Montreal,
-        City.Atlanta,
-        City.NewYork,
-        City.WashingtonDC,
-        City.London,
-        City.Paris,
-        City.Madrid,
-        City.Essen,
-        City.StPetersburg,
-        City.Milan,
-
-        City.LosAngeles,
-        City.Miami,
-        City.MexicoCity,
-        City.Bogota,
-        City.SaoPaolo,
-        City.BuenosAires,
-        City.Lima,
-        City.Santiago,
-        City.Lagos,
-        City.Kinshasa,
-        City.Johannesburg,
-        City.Khartoum,
-
-        City.Moscow,
-        City.Algiers,
-        City.Riyadh,
-        City.Baghdad,
-        City.Tehran,
-        City.Cairo,
-        City.Istanbul,
-        City.Karachi,
-        City.Delhi,
-        City.Mumbai,
-        City.Chennai,
-        City.Kolkata,
-
-        City.Beijing,
-        City.Shanghai,
-        City.HongKong,
-        City.Taipei,
-        City.Bangkok,
-        City.Manila,
-        City.Jakarta,
-        City.HoChiMinhCity,
-        City.Seoul,
-        City.Tokyo,
-        City.Osaka,
-        City.Sydney,
+        SAN_FRANCISCO,
+        CHICAGO,
+        MONTREAL,
+        ATLANTA,
+        NEW_YORK,
+        WASHINGTON_DC,
+        LONDON,
+        PARIS,
+        MADRID,
+        ESSEN,
+        ST_PETERSBURG,
+        MILAN,
+        LOS_ANGELES,
+        MIAMI,
+        MEXICO_CITY,
+        BOGOTA,
+        SAO_PAOLO,
+        BUENOS_AIRES,
+        LIMA,
+        SANTIAGO,
+        LAGOS,
+        KINSHASA,
+        JOHANNESBURG,
+        KHARTOUM,
+        MOSCOW,
+        ALGIERS,
+        RIYADH,
+        BAGHDAD,
+        TEHRAN,
+        CAIRO,
+        ISTANBUL,
+        KARACHI,
+        DELHI,
+        MUMBAI,
+        CHENNAI,
+        KOLKATA,
+        BEIJING,
+        SHANGHAI,
+        HONG_KONG,
+        TAIPEI,
+        BANGKOK,
+        MANILA,
+        JAKARTA,
+        HO_CHI_MINH_CITY,
+        SEOUL,
+        TOKYO,
+        OSAKA,
+        SYDNEY,
     ];
-}
-
-export function toFlagS0(city: City): string {
-    switch (city) {
-        case City.Algiers:
-        case City.Atlanta:
-        case City.Istanbul:
-        case City.Johannesburg:
-        case City.London:
-        case City.LosAngeles:
-        case City.NewYork:
-        case City.Paris:
-        case City.Rome:
-        case City.Saigon:
-        case City.SanFrancisco:
-        case City.Sydney:
-        case City.Toronto:
-        case City.Washington:
-            return "🤝";
-        case City.Bangkok:
-        case City.Bogota:
-        case City.Bombay:
-        case City.BuenosAires:
-        case City.Calcutta:
-        case City.Delhi:
-        case City.Jakarta:
-        case City.Karachi:
-        case City.Khartoum:
-        case City.Lagos:
-        case City.Leopoldville:
-        case City.Lima:
-        case City.Madrid:
-        case City.Manila:
-        case City.MexicoCity:
-        case City.Osaka:
-        case City.Riyadh:
-        case City.Santiago:
-        case City.SaoPaulo:
-        case City.Tokyo:
-            return "🌐";
-        case City.Baghdad:
-        case City.Cairo:
-        case City.EastBerlin:
-        case City.Hanoi:
-        case City.Havana:
-        case City.Kiev:
-        case City.Leningrad:
-        case City.Moscow:
-        case City.Novosibirsk:
-        case City.Peking:
-        case City.Prague:
-        case City.Pyongyang:
-        case City.Shanghai:
-        case City.Warsaw:
-            return "☭";
-    }
-    return "";
-}
-
-export function getColorS0(city: City): "danger" | "dark" | "primary" {
-    switch (city) {
-        case City.Algiers:
-        case City.Atlanta:
-        case City.Istanbul:
-        case City.Johannesburg:
-        case City.London:
-        case City.LosAngeles:
-        case City.NewYork:
-        case City.Paris:
-        case City.Rome:
-        case City.Saigon:
-        case City.Sydney:
-        case City.Toronto:
-        case City.Washington:
-            return "primary";
-        case City.Bangkok:
-        case City.Bogota:
-        case City.Bombay:
-        case City.Calcutta:
-        case City.Delhi:
-        case City.BuenosAires:
-        case City.Jakarta:
-        case City.Karachi:
-        case City.Khartoum:
-        case City.Lagos:
-        case City.Leopoldville:
-        case City.Lima:
-        case City.Madrid:
-        case City.Manila:
-        case City.MexicoCity:
-        case City.Osaka:
-        case City.Riyadh:
-        case City.SaoPaolo:
-        case City.Santiago:
-        case City.Tokyo:
-            return "dark";
-        case City.Baghdad:
-        case City.Cairo:
-        case City.EastBerlin:
-        case City.Havana:
-        case City.Hanoi:
-        case City.Kiev:
-        case City.Leningrad:
-        case City.Moscow:
-        case City.Novosibirsk:
-        case City.Peking:
-        case City.Prague:
-        case City.Pyongyang:
-        case City.Shanghai:
-        case City.Warsaw:
-            return "danger";
-    }
-    return "dark";
-}
-
-export function getColorS1(city: City): "danger" | "warning" | "dark" | "primary" {
-    switch (city) {
-        case City.SanFrancisco:
-        case City.Chicago:
-        case City.Montreal:
-        case City.Atlanta:
-        case City.NewYork:
-        case City.WashingtonDC:
-        case City.London:
-        case City.Paris:
-        case City.Madrid:
-        case City.Essen:
-        case City.StPetersburg:
-        case City.Milan:
-            return "primary";
-        case City.LosAngeles:
-        case City.Miami:
-        case City.MexicoCity:
-        case City.Bogota:
-        case City.SaoPaolo:
-        case City.BuenosAires:
-        case City.Lima:
-        case City.Santiago:
-        case City.Lagos:
-        case City.Kinshasa:
-        case City.Johannesburg:
-        case City.Khartoum:
-            return "warning";
-        case City.Moscow:
-        case City.Algiers:
-        case City.Riyadh:
-        case City.Baghdad:
-        case City.Tehran:
-        case City.Cairo:
-        case City.Istanbul:
-        case City.Karachi:
-        case City.Delhi:
-        case City.Mumbai:
-        case City.Chennai:
-        case City.Kolkata:
-            return "dark";
-        case City.Beijing:
-        case City.Shanghai:
-        case City.HongKong:
-        case City.Taipei:
-        case City.Bangkok:
-        case City.Manila:
-        case City.Jakarta:
-        case City.HoChiMinhCity:
-        case City.Seoul:
-        case City.Tokyo:
-        case City.Osaka:
-        case City.Sydney:
-            return "danger";
-    }
-    return "dark";
-}
-
-export function toFlag(city: City) {
-    switch (city) {
-        case City.Paris:
-            return "🇨🇵";
-        case City.Atlanta:
-        case City.Chicago:
-        case City.LosAngeles:
-        case City.Miami:
-        case City.NewYork:
-        case City.SanFrancisco:
-        case City.Washington:
-        case City.WashingtonDC:
-            return "🇺🇸";
-        case City.Montreal:
-        case City.Toronto:
-            return "🇨🇦";
-        case City.London:
-            return "🇬🇧";
-        case City.Madrid:
-            return "🇪🇸";
-        case City.EastBerlin:
-        case City.Essen:
-            return "🇩🇪";
-        case City.Leningrad:
-        case City.Moscow:
-        case City.Novosibirsk:
-        case City.StPetersburg:
-            return "🇷🇺";
-        case City.Milan:
-        case City.Rome:
-            return "🇮🇹";
-        case City.MexicoCity:
-            return "🇲🇽";
-        case City.Bogota:
-            return "🇨🇴";
-        case City.SaoPaolo:
-        case City.SaoPaulo:
-            return "🇧🇷";
-        case City.BuenosAires:
-            return "🇦🇷";
-        case City.Lima:
-            return "🇵🇪";
-        case City.Santiago:
-            return "🇨🇱";
-        case City.Lagos:
-            return "🇳🇬";
-        case City.Leopoldville:
-        case City.Kinshasa:
-            return "🇨🇩";
-        case City.Johannesburg:
-            return "🇿🇦";
-        case City.Khartoum:
-            return "🇸🇩";
-        case City.Algiers:
-            return "🇩🇿";
-        case City.Riyadh:
-            return "🇸🇦";
-        case City.Baghdad:
-            return "🇮🇶";
-        case City.Tehran:
-            return "🇮🇷";
-        case City.Cairo:
-            return "🇪🇬";
-        case City.Istanbul:
-            return "🇹🇷";
-        case City.Karachi:
-            return "🇵🇰";
-        case City.Bombay:
-        case City.Delhi:
-        case City.Mumbai:
-        case City.Chennai:
-        case City.Calcutta:
-        case City.Kolkata:
-            return "🇮🇳";
-        case City.Havana:
-            return "🇨🇺";
-        case City.Kiev:
-            return "🇺🇦";
-        case City.Prague:
-            return "🇨🇿";
-        case City.Pyongyang:
-            return "🇰🇵";
-        case City.Warsaw:
-            return "🇵🇱";
-        case City.Beijing:
-        case City.Peking:
-        case City.Shanghai:
-            return "🇨🇳";
-        case City.HongKong:
-            return "🇭🇰";
-        case City.Taipei:
-            return "🇹🇼";
-        case City.Bangkok:
-            return "🇹🇭";
-        case City.Manila:
-            return "🇵🇭";
-        case City.Jakarta:
-            return "🇮🇩";
-        case City.Hanoi:
-        case City.HoChiMinhCity:
-        case City.Saigon:
-            return "🇻🇳";
-        case City.Seoul:
-            return "🇰🇷";
-        case City.Osaka:
-        case City.Tokyo:
-            return "🇯🇵";
-        case City.Sydney:
-            return "🇦🇺";
-    }
-}
-
-export function toString(city: City) {
-    switch (city) {
-        case City.SanFrancisco:
-            return "San Francisco";
-        case City.Chicago:
-            return "Chicago";
-        case City.Montreal:
-            return "Montreal";
-        case City.Atlanta:
-            return "Atlanta";
-        case City.NewYork:
-            return "New York";
-        case City.WashingtonDC:
-            return "Washington D.C.";
-        case City.London:
-            return "London";
-        case City.Paris:
-            return "Paris";
-        case City.Madrid:
-            return "Madrid";
-        case City.Essen:
-            return "Essen";
-        case City.StPetersburg:
-            return "St. Petersburg";
-        case City.Milan:
-            return "Milan";
-        case City.LosAngeles:
-            return "Los Angeles";
-        case City.Miami:
-            return "Miami";
-        case City.MexicoCity:
-            return "Mexico City";
-        case City.Bogota:
-            return "Bogota";
-        case City.SaoPaolo:
-            return "Sao Paolo";
-        case City.BuenosAires:
-            return "Buenos Aires";
-        case City.Lima:
-            return "Lima";
-        case City.Santiago:
-            return "Santiago";
-        case City.Lagos:
-            return "Lagos";
-        case City.Kinshasa:
-            return "Kinshasa";
-        case City.Johannesburg:
-            return "Johannesburg";
-        case City.Khartoum:
-            return "Khartoum";
-        case City.Moscow:
-            return "Moscow";
-        case City.Algiers:
-            return "Algiers";
-        case City.Riyadh:
-            return "Riyadh";
-        case City.Baghdad:
-            return "Baghdad";
-        case City.Tehran:
-            return "Tehran";
-        case City.Cairo:
-            return "Cairo";
-        case City.Istanbul:
-            return "Istanbul";
-        case City.Karachi:
-            return "Karachi";
-        case City.Delhi:
-            return "Delhi";
-        case City.Mumbai:
-            return "Mumbai";
-        case City.Chennai:
-            return "Chennai";
-        case City.Kolkata:
-            return "Kolkata";
-        case City.Beijing:
-            return "Beijing";
-        case City.Shanghai:
-            return "Shanghai";
-        case City.HongKong:
-            return "Hong Kong";
-        case City.Taipei:
-            return "Taipei";
-        case City.Bangkok:
-            return "Bangkok";
-        case City.Manila:
-            return "Manila";
-        case City.Jakarta:
-            return "Jakarta";
-        case City.HoChiMinhCity:
-            return "Ho Chi Minh City";
-        case City.Seoul:
-            return "Seoul";
-        case City.Tokyo:
-            return "Tokyo";
-        case City.Osaka:
-            return "Osaka";
-        case City.Sydney:
-            return "Sydney";
-
-        case City.Leopoldville:
-            return "Leopoldville";
-        case City.Bombay:
-            return "Bombay";
-        case City.Calcutta:
-            return "Calcutta";
-        case City.Hanoi:
-            return "Hanoi";
-        case City.Novosibirsk:
-            return "Novosibirsk";
-        case City.Peking:
-            return "Peking";
-        case City.Pyongyang:
-            return "Pyongyang";
-        case City.Saigon:
-            return "Saigon";
-        case City.EastBerlin:
-            return "East Berlin";
-        case City.Kiev:
-            return "Kiev";
-        case City.Leningrad:
-            return "Leningrad";
-        case City.Prague:
-            return "Prague";
-        case City.Rome:
-            return "Rome";
-        case City.Warsaw:
-            return "Warsaw";
-        case City.Havana:
-            return "Havana";
-        case City.Toronto:
-            return "Toronto";
-        case City.Washington:
-            return "Washington";
-        case City.SaoPaulo:
-            return "Sao Paulo";
-    }
 }

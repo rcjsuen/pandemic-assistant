@@ -2,7 +2,7 @@ import React from 'react';
 import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonInput, IonItem, IonSelect, IonSelectOption, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { ControllerProps } from "../controller/controller";
 import { Storage } from '@capacitor/storage';
-import { City, toString } from '../service/city';
+import { City, getAfricaInfections, getSouthAmericaInfections } from '../service/city';
 import { SeasonZeroConfiguration } from '../service/pandemicAssistant';
 
 class SetupTab extends React.Component<ControllerProps, {
@@ -115,8 +115,8 @@ class SetupTab extends React.Component<ControllerProps, {
                                 <IonSelect multiple interface="popover" onIonChange={e => {
                                     this.updateExtraThreatCards(this.state.seasonZeroConfiguration.africaThreatCards, e.detail.value);
                                 }}>
-                                    {[City.Algiers, City.Cairo, City.Johannesburg, City.Khartoum, City.Lagos, City.Leopoldville].map((city) => {
-                                        return <IonSelectOption key={city} value={city}>{toString(city)}</IonSelectOption>
+                                    {getAfricaInfections().map((city) => {
+                                        return <IonSelectOption key={city.getName()} value={city}>{city.getName()}</IonSelectOption>
                                     })}
                                 </IonSelect>
                             </IonItem>
@@ -127,8 +127,8 @@ class SetupTab extends React.Component<ControllerProps, {
                                 <IonSelect multiple interface="popover" onIonChange={e => {
                                     this.updateExtraThreatCards(this.state.seasonZeroConfiguration.southAmericaThreatCards, e.detail.value);
                                 }}>
-                                {[City.Bogota, City.BuenosAires, City.Lima, City.Santiago, City.SaoPaolo].map((city) => {
-                                    return <IonSelectOption key={city} value={city}>{toString(city)}</IonSelectOption>
+                                {getSouthAmericaInfections().map((city) => {
+                                    return <IonSelectOption key={city.getName()} value={city}>{city.getName()}</IonSelectOption>
                                 })}
                                 </IonSelect>
                             </IonItem>
@@ -140,6 +140,7 @@ class SetupTab extends React.Component<ControllerProps, {
                                     <IonButton expand="block" onClick={() => {
                                         this.props.controller.setup(
                                             this.state.season,
+                                            this.state.month,
                                             this.state.playerCount,
                                             this.state.eventCards,
                                             this.state.epidemicCards,

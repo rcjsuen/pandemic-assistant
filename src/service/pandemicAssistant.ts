@@ -17,14 +17,18 @@ export class PandemicAssistant {
 
     private epidemicsDrawnIndex: number = 0;
 
-    private season: number = 0;
+    private season: 0 | 1 = 0;
+
+    private month: number = 0;
 
     constructor() {
         this.playerDeck = new PlayerDeck(2, 2, 5, 0);
         this.infectionDeck = new InfectionDeck(1, { africaThreatCards: new Set(), southAmericaThreatCards: new Set() });
     }
 
-    public setup(season: number,
+    public setup(
+        season: 0 | 1,
+        month: number,
         playerCount: number,
         eventCards: number,
         epidemicCards: number,
@@ -32,6 +36,7 @@ export class PandemicAssistant {
         seasonZeroConfiguration: SeasonZeroConfiguration
     ): void {
         this.season = season;
+        this.month = month;
         this.playerDeck = new PlayerDeck(playerCount, eventCards, epidemicCards, objectiveCards);
         this.infectionDeck = new InfectionDeck(season, seasonZeroConfiguration);
         this.epidemicsDrawn = [];
@@ -61,12 +66,12 @@ export class PandemicAssistant {
         }
     }
 
-    public drawInfectionDeck(city: string): void {
-        this.infectionDeck.draw(city as City);
+    public drawInfectionDeck(city: City): void {
+        this.infectionDeck.draw(city);
     }
 
-    public removeInfectionCard(city: string): void {
-        this.infectionDeck.removeInfectionCard(city as City);
+    public removeInfectionCard(city: City): void {
+        this.infectionDeck.removeInfectionCard(city);
     }
 
     public intensify(): void {
@@ -85,8 +90,12 @@ export class PandemicAssistant {
         return this.epidemicsDrawn;
     }
 
-    public getSeason(): number {
+    public getSeason(): 0 | 1 {
         return this.season;
+    }
+
+    public getMonth(): number {
+        return this.month;
     }
 }
 

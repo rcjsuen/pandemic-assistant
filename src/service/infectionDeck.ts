@@ -13,20 +13,23 @@ export class InfectionDeck {
             this.groups[0].push(city);
         }
         seasonZeroConfiguration.africaThreatCards.forEach((city) => {
-            this.groups[0].push(city);
+            this.discards.push(city);
         });
         seasonZeroConfiguration.southAmericaThreatCards.forEach((city) => {
-            this.groups[0].push(city);
+            this.discards.push(city);
         });
         this.groups[0].sort((a, b) => {
-            return a.localeCompare(b);
+            return a.getName().localeCompare(b.getName());
+        });
+        this.discards.sort((a, b) => {
+            return a.getName().localeCompare(b.getName());
         });
     }
 
     public draw(city: City): void {
         this.discards.push(city);
         this.discards.sort((a, b) => {
-            return a.localeCompare(b);
+            return a.getName().localeCompare(b.getName());
         });
         for (const group of this.groups) {
             const idx = group.indexOf(city);

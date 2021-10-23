@@ -1,11 +1,11 @@
 import React from 'react';
 import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonButton, IonCheckbox, IonLabel, IonSelect, IonSelectOption, IonToolbar, IonSegment, IonSegmentButton, IonButtons } from '@ionic/react';
 import './InfectionsContainer.css';
-import { City, getColorS0, getColorS1 } from '../service/city';
+import { City } from '../service/city';
 import { Controller } from '../controller/controller';
 import CityItem from './CityItem';
 
-class InfectionsContainer extends React.Component<{ controller: Controller, season: number }, { filter: string, groups: City[][], discards: City[] }> {
+class InfectionsContainer extends React.Component<{ controller: Controller, season: 0 | 1, month: number }, { filter: string, groups: City[][], discards: City[] }> {
 
     private mounted: boolean = false;
 
@@ -13,7 +13,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
         this.updateState();
     };
 
-    constructor(props: { controller: Controller, season: number }) {
+    constructor(props: { controller: Controller, season: 0 | 1, month: number }) {
         super(props)
         this.state = {
             filter: "all",
@@ -47,12 +47,14 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
         }
     }
 
-    private shouldShow(cityColor: string): boolean {
+    private shouldShow(city: City): boolean {
         if (this.state.filter === "all") {
             return true;
+        } else if (this.state.filter === "green") {
+            return city.isInfected();
         }
 
-        switch (cityColor) {
+        switch (city.getColour(this.props.season)) {
             case "dark":
                 return this.state.filter === "black";
             case "danger":
@@ -70,15 +72,26 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
         return (
             <div>
                 <IonToolbar>
-                    <IonSegment value={this.state.filter} onIonChange={e => { this.setState({filter: e.detail.value as string })}}>
-                        <IonSegmentButton value="all">all</IonSegmentButton>
-                        <IonSegmentButton value="black">black</IonSegmentButton>
-                        <IonSegmentButton value="blue">blue</IonSegmentButton>
-                        <IonSegmentButton value="red">red</IonSegmentButton>
-                        {
-                            this.props.season === 1 && <IonSegmentButton value="yellow">yellow</IonSegmentButton>
-                        }
-                    </IonSegment>
+                    {
+                        this.props.season === 0 && <IonSegment value={this.state.filter} onIonChange={e => { this.setState({filter: e.detail.value as string })}}>
+                            <IonSegmentButton value="all">all</IonSegmentButton>
+                            <IonSegmentButton value="blue">nato</IonSegmentButton>
+                            <IonSegmentButton value="black">neutral</IonSegmentButton>
+                            <IonSegmentButton value="red">ussr</IonSegmentButton>
+                            {
+                                this.props.month >= 3 && <IonSegmentButton value="green">infected</IonSegmentButton>
+                            }
+                        </IonSegment>
+                    }
+                    {
+                        this.props.season === 1 && <IonSegment value={this.state.filter} onIonChange={e => { this.setState({filter: e.detail.value as string })}}>
+                            <IonSegmentButton value="all">all</IonSegmentButton>
+                            <IonSegmentButton value="black">black</IonSegmentButton>
+                            <IonSegmentButton value="blue">blue</IonSegmentButton>
+                            <IonSegmentButton value="red">red</IonSegmentButton>
+                            <IonSegmentButton value="yellow">yellow</IonSegmentButton>
+                        </IonSegment>
+                    }
                 </IonToolbar>
                 <IonGrid>
                     <IonRow>
@@ -96,18 +109,17 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
                 </IonGrid>
                 <IonList>
                 {hasDiscards && <IonItemDivider sticky>Discards</IonItemDivider>}
-                    {hasDiscards && this.state.discards.map((card, index) => {
-                        const color = this.props.season === 0 ? getColorS0(card) : getColorS1(card);
-                        if (!this.shouldShow(color)) {
-                            return <div key={index}></div>
-                        }
+                {hasDiscards && this.state.discards.map((city, index) => {
+                    if (!this.shouldShow(city)) {
+                        return <div key={index}></div>
+                    }
                     const id = `discard-${index}`;
                     return <IonItemSliding id={id} key={index}>
-                        <CityItem season={this.props.season} city={card} onClick={undefined}/>
+                        <CityItem season={this.props.season} city={city} onClick={undefined}/>
                         <IonItemOptions side="end">
                             {/* remove a card via Resilient Population */}
                             <IonItemOption color="danger" onClick={() => {
-                                this.props.controller.removeInfectionCard(card);
+                                this.props.controller.removeInfectionCard(city);
                                 this.updateState();
                                 (document.getElementById(id) as any).close();
                             }}>
@@ -126,8 +138,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
                     return <div key={index}>
                         <IonItemDivider sticky>{name}</IonItemDivider>
                         {group.map((city, index) => {
-                            const color = this.props.season === 0 ? getColorS0(city) : getColorS1(city);
-                            if (!this.shouldShow(color)) {
+                            if (!this.shouldShow(city)) {
                                 return <div key={index}></div>
                             }
                             return <CityItem key={index} season={this.props.season} city={city} onClick={() => {

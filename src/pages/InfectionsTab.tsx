@@ -16,7 +16,7 @@ const InfectionsTab: React.FC<ControllerProps> = ({controller}) => {
             <IonTitle size="large">Infections</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <InfectionsContainer controller={controller} season={controller.getSeason()} />
+        <InfectionsContainer controller={controller} season={controller.getSeason()} month={controller.getMonth()} />
       </IonContent>
     </IonPage>
   );
