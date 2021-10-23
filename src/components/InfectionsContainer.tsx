@@ -75,9 +75,9 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
                     {
                         this.props.season === 0 && <IonSegment value={this.state.filter} onIonChange={e => { this.setState({filter: e.detail.value as string })}}>
                             <IonSegmentButton value="all">all</IonSegmentButton>
-                            <IonSegmentButton value="blue">nato</IonSegmentButton>
+                            <IonSegmentButton value="blue">NATO</IonSegmentButton>
                             <IonSegmentButton value="black">neutral</IonSegmentButton>
-                            <IonSegmentButton value="red">ussr</IonSegmentButton>
+                            <IonSegmentButton value="red">USSR</IonSegmentButton>
                             {
                                 this.props.month >= 3 && <IonSegmentButton value="green">infected</IonSegmentButton>
                             }
