@@ -1,9 +1,8 @@
 import React from 'react';
 import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonItem, IonSelect, IonSelectOption, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { RouteComponentProps } from 'react-router-dom';
-import SetupButton from '../components/SetupButton';
+import NextButton from '../components/NextButton';
 
-// const UsersListPage: React.FC<RouteComponentProps> = (
 class SetupPage extends React.Component<RouteComponentProps, { season: 0 | 1, month: number, playerCount: number }> {
 
     constructor(props: RouteComponentProps) {
@@ -71,7 +70,7 @@ class SetupPage extends React.Component<RouteComponentProps, { season: 0 | 1, mo
                             <IonRow>
                                 <IonCol></IonCol>
                                 <IonCol>
-                                    <SetupButton season={this.state.season} playerCount={this.state.playerCount} month={this.state.month} />
+                                    <NextButton season={this.state.season} playerCount={this.state.playerCount} month={this.state.month} />
                                 </IonCol>
                                 <IonCol></IonCol>
                             </IonRow>

@@ -1,19 +1,35 @@
 import React from 'react';
-import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonInput, IonItem, IonSelect, IonSelectOption, IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonInput, IonItem, IonSelect, IonSelectOption, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonBackButton, IonButtons } from '@ionic/react';
 import { ControllerProps } from "../controller/controller";
 import { Storage } from '@capacitor/storage';
 import { City, getAfricaInfections, getSouthAmericaInfections } from '../service/city';
 import { SeasonZeroConfiguration } from '../service/pandemicAssistant';
+import StartButton from '../components/StartButton';
 
-class SetupTab extends React.Component<ControllerProps, {
-    season: 0 | 1,
-    playerCount: number,
-    month: number,
-    eventCards: number,
-    epidemicCards: number,
-    objectiveCards: number,
-    seasonZeroConfiguration: SeasonZeroConfiguration,
-}> {
+interface SeasonSetupState {
+    season: 0 | 1;
+    playerCount: number;
+    month: number;
+    eventCards: number;
+    epidemicCards: number;
+    objectiveCards: number;
+    seasonZeroConfiguration: {
+        africaThreatCards: Set<City>;
+        southAmericaThreatCards: Set<City>;
+    };
+}
+
+export interface GameConfiguration {
+    season: 0 | 1;
+    playerCount: number;
+    month: number;
+    eventCards: number;
+    epidemicCards: number;
+    objectiveCards: number;
+    seasonZeroConfiguration: SeasonZeroConfiguration;
+}
+
+class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState> {
 
     constructor(props: ControllerProps) {
         super(props)
@@ -58,20 +74,41 @@ class SetupTab extends React.Component<ControllerProps, {
         }
     }
 
+    private serialize(): GameConfiguration {
+        const africa: string[] = [];
+        this.state.seasonZeroConfiguration.africaThreatCards.forEach((city) => {
+            africa.push(city.getName());
+        });
+        const southAmerica: string[] = [];
+        this.state.seasonZeroConfiguration.southAmericaThreatCards.forEach((city) => {
+            southAmerica.push(city.getName());
+        });
+        return {
+            season: this.state.season,
+            playerCount: this.state.playerCount,
+            month: this.state.month,
+            eventCards: this.state.eventCards,
+            epidemicCards: this.state.epidemicCards,
+            objectiveCards: this.state.objectiveCards,
+            seasonZeroConfiguration: {
+                africaThreatCards: africa,
+                southAmericaThreatCards: southAmerica
+            }
+        };
+    }
+
     public render() {
         return (
             <IonPage>
                 <IonHeader>
                     <IonToolbar>
-                        <IonTitle>Pandemic Assistant</IonTitle>
+                        <IonButtons slot="start">
+                            <IonBackButton defaultHref="/"></IonBackButton>
+                        </IonButtons>
+                        <IonTitle>Season {this.state.season}</IonTitle>
                     </IonToolbar>
                 </IonHeader>
                 <IonContent fullscreen>
-                    <IonHeader collapse="condense">
-                        <IonToolbar>
-                            <IonTitle size="large">Pandemic Assistant</IonTitle>
-                        </IonToolbar>
-                    </IonHeader>
                     <IonList>
                         <IonItem>
                             <IonLabel>Event Cards</IonLabel>
@@ -92,7 +129,13 @@ class SetupTab extends React.Component<ControllerProps, {
                         {this.state.season === 0 &&
                             <IonItem>
                                 <IonLabel>Objective Cards</IonLabel>
-                            <IonInput type="number" value={this.state.objectiveCards} placeholder="Enter Number" min="0" onIonChange={e => this.setState({ objectiveCards: Number(e.detail.value) })}></IonInput>
+                                <IonInput
+                                    type="number"
+                                    value={this.state.objectiveCards}
+                                    placeholder="Enter Number"
+                                    min="0"
+                                    onIonChange={e => this.setState({ objectiveCards: Number(e.detail.value) })}>
+                                </IonInput>
                             </IonItem>
                         }
                         {this.state.season !== 0 &&
@@ -137,19 +180,7 @@ class SetupTab extends React.Component<ControllerProps, {
                             <IonRow>
                                 <IonCol></IonCol>
                                 <IonCol>
-                                    <IonButton expand="block" onClick={() => {
-                                        this.props.controller.setup(
-                                            this.state.season,
-                                            this.state.month,
-                                            this.state.playerCount,
-                                            this.state.eventCards,
-                                            this.state.epidemicCards,
-                                            this.state.objectiveCards,
-                                            this.state.seasonZeroConfiguration,
-                                        );
-                                    }}>
-                                        Start
-                                    </IonButton>
+                                    <StartButton config={ this.serialize() }></StartButton>
                                 </IonCol>
                                 <IonCol></IonCol>
                             </IonRow>
@@ -161,4 +192,4 @@ class SetupTab extends React.Component<ControllerProps, {
     }
 }
 
-export default SetupTab;
+export default SeasonSetupPage;

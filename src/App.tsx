@@ -23,9 +23,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import { Controller } from './controller/controller';
-
-const controller = new Controller();
+import SeasonSetupPage from './pages/SeasonSetupPage';
 
 class App extends React.Component {
 
@@ -33,7 +31,7 @@ class App extends React.Component {
         return <IonApp>
             <IonReactHashRouter>
                 <Route path="/" component={SetupPage} exact />
-                <Route path="/setup" component={MainTabs} exact />
+                <Route path="/setup/:id" component={SeasonSetupPage} exact />
                 <Route path="/epidemics" component={MainTabs} exact />
                 <Route path="/infections" component={MainTabs} exact />
             </IonReactHashRouter>

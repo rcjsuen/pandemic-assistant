@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonButton, IonCheckbox, IonLabel, IonSelect, IonSelectOption, IonToolbar, IonSegment, IonSegmentButton, IonButtons } from '@ionic/react';
+import { IonItemSliding, IonItemOptions, IonItemOption, IonGrid, IonCol, IonRow, IonList, IonItemDivider, IonButton, IonToolbar, IonSegment, IonSegmentButton } from '@ionic/react';
 import './InfectionsContainer.css';
 import { City } from '../service/city';
 import { Controller } from '../controller/controller';

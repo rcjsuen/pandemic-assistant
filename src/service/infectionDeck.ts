@@ -1,4 +1,4 @@
-import { City, getCities } from "./city";
+import { City, getCities, getInfectedCity } from "./city";
 import { SeasonZeroConfiguration } from "./pandemicAssistant";
 
 export class InfectionDeck {
@@ -13,10 +13,10 @@ export class InfectionDeck {
             this.groups[0].push(city);
         }
         seasonZeroConfiguration.africaThreatCards.forEach((city) => {
-            this.discards.push(city);
+            this.discards.push(getInfectedCity(city));
         });
         seasonZeroConfiguration.southAmericaThreatCards.forEach((city) => {
-            this.discards.push(city);
+            this.discards.push(getInfectedCity(city));
         });
         this.groups[0].sort((a, b) => {
             return a.getName().localeCompare(b.getName());

@@ -105,6 +105,34 @@ const TORONTO = new City("Toronto", "🇨🇦", ["primary", "primary"], "North A
 const WASHINGTON = new City("Washington", "🇺🇸", ["primary", "primary"], "North America");
 const SAO_PAULO = new City("Sao Paulo", "🇧🇷", ["dark", "dark"], "South America");
 
+export function getInfectedCity(city: string): City {
+    switch (city) {
+        case ALGIERS.getName():
+            return ALGIERS.infect();
+        case CAIRO.getName():
+            return CAIRO.infect();
+        case JOHANNESBURG.getName():
+            return JOHANNESBURG.infect();
+        case KHARTOUM.getName():
+            return KHARTOUM.infect();
+        case LAGOS.getName():
+            return LAGOS.infect();
+        case LEOPOLDVILLE.getName():
+            return LEOPOLDVILLE.infect();
+        case BOGOTA.getName():
+            return BOGOTA.infect();
+        case BUENOS_AIRES.getName():
+            return BUENOS_AIRES.infect();
+        case LIMA.getName():
+            return LIMA.infect();
+        case SANTIAGO.getName():
+            return SANTIAGO.infect();
+        case SAO_PAULO.getName():
+            return SAO_PAULO.infect();
+    }
+    throw new Error(city);
+}
+
 export function getAfricaInfections(): City[] {
     return [
         ALGIERS.infect(),
