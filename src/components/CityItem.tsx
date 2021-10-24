@@ -12,7 +12,7 @@ export interface CityItemProps {
 const CityItem: React.FC<CityItemProps> = ({season, city, onClick}) => {
     return (
         <IonItem button={onClick !== undefined} onClick={onClick}>
-            <IonLabel>{city.getLabel()}</IonLabel>
+            <IonLabel>{city.getLabel(season)}</IonLabel>
             <IonIcon icon={ellipse} color={city.getColour(season)} slot="end"/>
         </IonItem>
     );

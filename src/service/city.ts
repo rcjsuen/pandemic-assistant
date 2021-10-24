@@ -11,7 +11,10 @@ export class City {
         return this.name;
     }
 
-    public getLabel(): string {
+    public getLabel(season: 0 | 1 | 2): string {
+        if (season === 2) {
+            return this.name;
+        }
         if (this.infected) {
             return `☣️ ${this.name} (${this.region})`;
         }

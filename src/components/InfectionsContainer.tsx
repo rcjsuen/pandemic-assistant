@@ -92,6 +92,14 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
                             <IonSegmentButton value="yellow">yellow</IonSegmentButton>
                         </IonSegment>
                     }
+                    {
+                        this.props.season === 2 && <IonSegment value={this.state.filter} onIonChange={e => { this.setState({filter: e.detail.value as string })}}>
+                            <IonSegmentButton value="all">all</IonSegmentButton>
+                            <IonSegmentButton value="black">black</IonSegmentButton>
+                            <IonSegmentButton value="blue">blue</IonSegmentButton>
+                            <IonSegmentButton value="yellow">yellow</IonSegmentButton>
+                        </IonSegment>
+                    }
                 </IonToolbar>
                 <IonGrid>
                     <IonRow>

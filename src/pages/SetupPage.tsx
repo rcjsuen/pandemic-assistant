@@ -32,6 +32,7 @@ class SetupPage extends React.Component<RouteComponentProps, { season: 0 | 1, mo
                             }}>
                                 <IonSelectOption value="0">0</IonSelectOption>
                                 <IonSelectOption value="1">1</IonSelectOption>
+                                <IonSelectOption value="2">2</IonSelectOption>
                             </IonSelect>
                         </IonItem>
                         <IonItem>
