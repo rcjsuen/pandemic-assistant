@@ -108,7 +108,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
                     </IonRow>
                 </IonGrid>
                 <IonList>
-                {hasDiscards && <IonItemDivider sticky>Discards</IonItemDivider>}
+                    {hasDiscards && <IonItemDivider sticky>{this.state.discards.length === 0 ? "Discards" : `Discards (${this.state.discards.length})`}</IonItemDivider>}
                 {hasDiscards && this.state.discards.map((city, index) => {
                     if (!this.shouldShow(city)) {
                         return <div key={index}></div>
@@ -129,11 +129,11 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
                     </IonItemSliding>
                 })}
                 {this.state.groups.map((group, index) => {
-                    let name = `Group ${index + 1}`;
+                    let name = `Group ${index + 1} (${group.length})`;
                     if (index === this.state.groups.length - 1) {
                         name = "Deck";
                     } else if (index === 0) {
-                        name = "Current Group";
+                        name = `Current Group (${group.length})`;
                     }
                     return <div key={index}>
                         <IonItemDivider sticky>{name}</IonItemDivider>
