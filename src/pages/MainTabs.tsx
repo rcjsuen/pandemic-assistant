@@ -24,16 +24,21 @@ class MainTabs extends React.Component<{}, { season: 0 | 1 }> {
     constructor(props: any) {
         super(props)
         this.state = { season: 0 };
-        Storage.get({ key: "setup" }).then((result) => {
-            const state: GameConfiguration = JSON.parse(result.value as any) as any;
-            controller.setup(state.season,
-                state.month,
-                state.playerCount,
-                state.eventCards,
-                state.epidemicCards,
-                state.objectiveCards,
-                state.seasonZeroConfiguration
-            )
+        Storage.get({ key: "setup" }).then((setupResult) => {
+            Storage.get({ key: "initialized" }).then((initializedResult) => {
+                if (initializedResult.value === "false") {
+                    const state: GameConfiguration = JSON.parse(setupResult.value as any) as any;
+                    controller.setup(state.season,
+                        state.month,
+                        state.playerCount,
+                        state.eventCards,
+                        state.epidemicCards,
+                        state.objectiveCards,
+                        state.seasonZeroConfiguration
+                    );
+                    Storage.set({ key: "initialized", value: "true" });
+                }
+            });
         });
     }
 

@@ -31,6 +31,7 @@ const StartButton: React.FC<{ config: SeasonSetupState }> = (props) => {
     const router = useIonRouter();
     return (
         <IonButton expand="block" onClick={async () => {
+            await Storage.set({ key: "initialized", value: "false" });
             await Storage.set({ key: "setup", value: JSON.stringify(serialize(props.config)) });
             router.push("/epidemics");
         }}>

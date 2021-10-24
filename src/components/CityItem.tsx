@@ -4,9 +4,9 @@ import { ellipse } from 'ionicons/icons';
 import { City } from '../service/city';
 
 export interface CityItemProps {
-    season: 0 | 1
-    city: City
-    onClick: React.MouseEventHandler | undefined
+    season: 0 | 1 | 2;
+    city: City;
+    onClick?: React.MouseEventHandler;
 }
 
 const CityItem: React.FC<CityItemProps> = ({season, city, onClick}) => {

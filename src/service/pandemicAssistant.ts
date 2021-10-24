@@ -17,7 +17,7 @@ export class PandemicAssistant {
 
     private epidemicsDrawnIndex: number = 0;
 
-    private season: 0 | 1 = 0;
+    private season: 0 | 1 | 2 = 0;
 
     private month: number = 0;
 
@@ -27,7 +27,7 @@ export class PandemicAssistant {
     }
 
     public setup(
-        season: 0 | 1,
+        season: 0 | 1 | 2,
         month: number,
         playerCount: number,
         eventCards: number,
@@ -90,7 +90,7 @@ export class PandemicAssistant {
         return this.epidemicsDrawn;
     }
 
-    public getSeason(): 0 | 1 {
+    public getSeason(): 0 | 1 | 2 {
         return this.season;
     }
 

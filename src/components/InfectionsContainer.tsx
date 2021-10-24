@@ -5,7 +5,7 @@ import { City } from '../service/city';
 import { Controller } from '../controller/controller';
 import CityItem from './CityItem';
 
-class InfectionsContainer extends React.Component<{ controller: Controller, season: 0 | 1, month: number }, { filter: string, groups: City[][], discards: City[] }> {
+class InfectionsContainer extends React.Component<{ controller: Controller, season: 0 | 1 | 2, month: number }, { filter: string, groups: City[][], discards: City[] }> {
 
     private mounted: boolean = false;
 
@@ -115,7 +115,7 @@ class InfectionsContainer extends React.Component<{ controller: Controller, seas
                     }
                     const id = `discard-${index}`;
                     return <IonItemSliding id={id} key={index}>
-                        <CityItem season={this.props.season} city={city} onClick={undefined}/>
+                        <CityItem season={this.props.season} city={city}/>
                         <IonItemOptions side="end">
                             {/* remove a card via Resilient Population */}
                             <IonItemOption color="danger" onClick={() => {

@@ -108,7 +108,7 @@ export class Controller {
         return this.assistant.getMaxRemainder();
     }
 
-    public getSeason(): 0 | 1 {
+    public getSeason(): 0 | 1 | 2 {
         return this.assistant.getSeason();
     }
 

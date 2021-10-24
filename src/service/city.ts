@@ -18,8 +18,8 @@ export class City {
         return `${this.flag} ${this.name} (${this.region})`;
     }
 
-    public getColour(season: 0 | 1): "dark" | "danger" | "primary" | "warning" | "success" {
-        if (this.colours.length !== 2) {
+    public getColour(season: 0 | 1 | 2): "dark" | "danger" | "primary" | "warning" | "success" {
+        if (this.colours.length < 2) {
             throw new Error(this.name);
         }
         if (this.infected) {
@@ -41,9 +41,9 @@ const SAN_FRANCISCO = new City("San Francisco", "🇺🇸", ["primary", "primary
 const CHICAGO = new City("Chicago", "🇺🇸", ["primary", "primary"], "North America");
 const MONTREAL = new City("Montreal", "🇨🇦", ["primary", "primary"], "North America");
 const ATLANTA = new City("Atlanta", "🇺🇸", ["primary", "primary"], "North America");
-const NEW_YORK = new City("New York", "🇺🇸", ["primary", "primary"], "North America");
+const NEW_YORK = new City("New York", "🇺🇸", ["primary", "primary", "primary"], "North America");
 const WASHINGTON_DC = new City("Washington DC", "🇺🇸", ["primary", "primary"], "North America");
-const LONDON = new City("London", "🇬🇧", ["primary", "primary"], "Europe");
+const LONDON = new City("London", "🇬🇧", ["primary", "primary", "primary"], "Europe");
 const PARIS = new City("Paris", "🇨🇵", ["primary", "primary"], "Europe");
 const MADRID = new City("Madrid", "🇪🇸", ["dark", "primary"], "Europe");
 const ESSEN = new City("Essen", "🇩🇪", ["primary", "primary"], "Europe");
@@ -57,7 +57,7 @@ const SAO_PAOLO = new City("Sao Paolo", "🇧🇷", ["warning", "warning"], "Sou
 const BUENOS_AIRES = new City("Buenos Aires", "🇦🇷", ["dark", "warning"], "South America");
 const LIMA = new City("Lima", "🇵🇪", ["dark", "warning"], "South America");
 const SANTIAGO = new City("Santiago", "🇨🇱", ["dark", "warning"], "South America");
-const LAGOS = new City("Lagos", "🇳🇬", ["dark", "warning"], "Africa");
+const LAGOS = new City("Lagos", "🇳🇬", ["dark", "warning", "warning"], "Africa");
 const KINSHASA = new City("Kinshasa", "🇨🇩", ["warning", "warning"], "Africa");
 const JOHANNESBURG = new City("Johannesburg", "🇿🇦", ["primary", "warning"], "Africa");
 const KHARTOUM = new City("Khartoum", "🇸🇩", ["dark", "warning"], "Africa");
@@ -66,8 +66,8 @@ const ALGIERS = new City("Algiers", "🇩🇿", ["primary", "dark"], "Africa");
 const RIYADH = new City("Riyadh", "🇸🇦", ["dark", "dark"], "Asia");
 const BAGHDAD = new City("Baghdad", "🇮🇶", ["danger", "dark"], "Asia");
 const TEHRAN = new City("Tehran", "🇮🇷", ["dark", "dark"], "Asia");
-const CAIRO = new City("Cairo", "🇪🇬", ["danger", "dark"], "Asia");
-const ISTANBUL = new City("Istanbul", "🇹🇷", ["primary", "dark"], "Europe");
+const CAIRO = new City("Cairo", "🇪🇬", ["danger", "dark", "dark"], "Asia");
+const ISTANBUL = new City("Istanbul", "🇹🇷", ["primary", "dark", "dark"], "Europe");
 const KARACHI = new City("Karachi", "🇵🇰", ["dark", "dark"], "Asia");
 const DELHI = new City("Delhi", "🇮🇳", ["dark", "dark"], "Asia");
 const MUMBAI = new City("Mumbai", "🇮🇳", ["dark", "dark"], "Asia");
@@ -86,6 +86,7 @@ const TOKYO = new City("Tokyo", "🇯🇵", ["dark", "danger"], "Pacific Rim");
 const OSAKA = new City("Osaka", "🇯🇵", ["dark", "danger"], "Pacific Rim");
 const SYDNEY = new City("Sydney", "🇦🇺", ["primary", "danger"], "Pacific Rim");
 
+// Season 0
 const LEOPOLDVILLE = new City("Leopoldville", "🇨🇩", ["danger", "danger"], "Africa");
 const BOMBAY = new City("Bombay", "🇮🇳", ["danger", "danger"], "Asia");
 const CALCUTTA = new City("Calcutta", "🇮🇳", ["dark", "dark"], "Asia");
@@ -102,8 +103,12 @@ const ROME = new City("Rome", "🇮🇹", ["primary", "primary"], "Europe");
 const WARSAW = new City("Warsaw", "🇵🇱", ["danger", "danger"], "Europe");
 const HAVANA = new City("Havana", "🇨🇺", ["danger", "danger"], "North America");
 const TORONTO = new City("Toronto", "🇨🇦", ["primary", "primary"], "North America");
-const WASHINGTON = new City("Washington", "🇺🇸", ["primary", "primary"], "North America");
-const SAO_PAULO = new City("Sao Paulo", "🇧🇷", ["dark", "dark"], "South America");
+const WASHINGTON = new City("Washington", "🇺🇸", ["primary", "primary", "primary"], "North America");
+const SAO_PAULO = new City("Sao Paulo", "🇧🇷", ["dark", "dark", "warning"], "South America");
+
+// Season 2
+const TRIPOLI = new City("Tripoli", "🇱🇾", ["dark", "dark", "dark"], "Africa");
+const JACKSONVILLE = new City("Jacksonville", "🇺🇸", ["warning", "warning", "warning"], "North America");
 
 export function getInfectedCity(city: string): City {
     switch (city) {
@@ -155,7 +160,21 @@ export function getSouthAmericaInfections(): City[] {
 }
 
 export function getCities(season: number): City[] {
-    if (season === 0) {
+    if (season === 2) {
+        return [
+            LONDON, LONDON, LONDON,
+            NEW_YORK, NEW_YORK, NEW_YORK,
+            WASHINGTON, WASHINGTON, WASHINGTON,
+
+            CAIRO, CAIRO, CAIRO,
+            ISTANBUL, ISTANBUL, ISTANBUL,
+            TRIPOLI, TRIPOLI, TRIPOLI,
+
+            JACKSONVILLE, JACKSONVILLE, JACKSONVILLE,
+            LAGOS, LAGOS, LAGOS,
+            SAO_PAULO, SAO_PAULO, SAO_PAULO,
+        ]
+    } else if (season === 0) {
         return [
             SAN_FRANCISCO,
             TORONTO,
