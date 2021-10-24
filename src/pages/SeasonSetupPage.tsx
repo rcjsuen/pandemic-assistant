@@ -63,10 +63,6 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
         this.updateExtraThreatCards.bind(this);
     }
 
-    private getDangerCardText(): string {
-        return this.state.season === 0 ? "Threat Cards" : "Epidemic Cards";
-    }
-
     private updateExtraThreatCards(threatCards: Set<City>, cities: string[]): void {
         threatCards.clear();
         for (const city of cities) {
@@ -134,7 +130,7 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                         {this.state.season !== 0 &&
                             // there are only ever 5 cards in Season 0
                             <IonItem>
-                                <IonLabel>{this.getDangerCardText()}</IonLabel>
+                                <IonLabel>Epidemics</IonLabel>
                                 <IonSelect value={String(this.state.epidemicCards)} interface="popover" onIonChange={e => {
                                     this.setState({ epidemicCards: Number(e.detail.value) });
                                 }}>
