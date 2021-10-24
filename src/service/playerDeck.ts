@@ -12,8 +12,8 @@ export class PlayerDeck {
 
     private currentBucket: number;
 
-    constructor(private playerCount: number, eventCards: number, epidemicCards: number, objectiveCards: number) {
-        let total = 48 + eventCards + epidemicCards - objectiveCards;
+    constructor(initialDeckSize: number, private playerCount: number, eventCards: number, epidemicCards: number, objectiveCards: number) {
+        let total = initialDeckSize + eventCards + epidemicCards - objectiveCards;
         this.deck = total - this.getStartingRemoval();
         let remainder = this.deck;
         let epidemics = epidemicCards;

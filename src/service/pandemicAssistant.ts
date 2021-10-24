@@ -22,7 +22,7 @@ export class PandemicAssistant {
     private month: number = 0;
 
     constructor() {
-        this.playerDeck = new PlayerDeck(2, 2, 5, 0);
+        this.playerDeck = new PlayerDeck(48, 2, 2, 5, 0);
         this.infectionDeck = new InfectionDeck(1, { africaThreatCards: [], southAmericaThreatCards: [] });
     }
 
@@ -37,7 +37,7 @@ export class PandemicAssistant {
     ): void {
         this.season = season;
         this.month = month;
-        this.playerDeck = new PlayerDeck(playerCount, eventCards, epidemicCards, objectiveCards);
+        this.playerDeck = new PlayerDeck(season === 2 ? 44 : 48, playerCount, eventCards, epidemicCards, objectiveCards);
         this.infectionDeck = new InfectionDeck(season, seasonZeroConfiguration);
         this.epidemicsDrawn = [];
         for (let i = 0; i < epidemicCards; i++) {
