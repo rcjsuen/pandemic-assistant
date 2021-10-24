@@ -74,6 +74,22 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
         }
     }
 
+    private createInfectionSelection(month: number, label: string, cardsToUpdate: Set<City>, infectionCards: City[]): JSX.Element {
+        if (this.state.season === 0 && this.state.month >= month) {
+            return <IonItem>
+                <IonLabel>Infected Cities ({label})</IonLabel>
+                <IonSelect multiple interface="popover" onIonChange={e => {
+                    this.updateExtraThreatCards(cardsToUpdate, e.detail.value);
+                }}>
+                    {infectionCards.map((city) => {
+                        return <IonSelectOption key={city.getName()} value={city}>{city.getName()}</IonSelectOption>
+                    })}
+                </IonSelect>
+            </IonItem>
+        }
+        return <div></div>
+    }
+
     public render() {
         return (
             <IonPage>
@@ -129,30 +145,16 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                                 </IonSelect>
                             </IonItem>
                         }
-                        {this.state.season === 0 && this.state.month >= 3 &&
-                            <IonItem>
-                                <IonLabel>Infected Cities (Africa)</IonLabel>
-                                <IonSelect multiple interface="popover" onIonChange={e => {
-                                    this.updateExtraThreatCards(this.state.seasonZeroConfiguration.africaThreatCards, e.detail.value);
-                                }}>
-                                    {getAfricaInfections().map((city) => {
-                                        return <IonSelectOption key={city.getName()} value={city}>{city.getName()}</IonSelectOption>
-                                    })}
-                                </IonSelect>
-                            </IonItem>
-                        }
-                        {this.state.season === 0 && this.state.month >= 5 &&
-                            <IonItem>
-                                <IonLabel>Infected Cities (South America)</IonLabel>
-                                <IonSelect multiple interface="popover" onIonChange={e => {
-                                    this.updateExtraThreatCards(this.state.seasonZeroConfiguration.southAmericaThreatCards, e.detail.value);
-                                }}>
-                                {getSouthAmericaInfections().map((city) => {
-                                    return <IonSelectOption key={city.getName()} value={city}>{city.getName()}</IonSelectOption>
-                                })}
-                                </IonSelect>
-                            </IonItem>
-                        }
+                        {this.createInfectionSelection(
+                            3, "Africa",
+                            this.state.seasonZeroConfiguration.africaThreatCards,
+                            getAfricaInfections()
+                        )}
+                        {this.createInfectionSelection(
+                            5, "South America",
+                            this.state.seasonZeroConfiguration.southAmericaThreatCards,
+                            getSouthAmericaInfections()
+                        )}
                         <IonGrid>
                             <IonRow>
                                 <IonCol></IonCol>
