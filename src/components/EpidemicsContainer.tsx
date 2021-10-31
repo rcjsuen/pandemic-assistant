@@ -53,8 +53,8 @@ class EpidemicsContainer extends React.Component<{ controller: Controller }, {
     }
   
     public render() {
-        const minRounds = Math.ceil(this.state.minCards / 2);
-        const maxRounds = Math.ceil(this.state.maxCards / 2);
+        const minRounds = Math.floor(this.state.minCards / 2);
+        const maxRounds = Math.floor(this.state.maxCards / 2);
         const allDrawn = this.state.epidemics.length === 0 ? false : this.state.epidemics.reduce((previous, current) => {
             return previous && current;
         });
