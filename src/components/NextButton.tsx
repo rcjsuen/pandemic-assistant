@@ -3,7 +3,7 @@ import { useIonRouter } from "@ionic/react";
 import { IonButton } from '@ionic/react';
 import { Storage } from '@capacitor/storage';
 
-const NextButton: React.FC<{ season: 0 | 1, playerCount: number, month: number }> = (props) => {
+const NextButton: React.VFC<{ season: 0 | 1, playerCount: number, month: number }> = (props) => {
     const router = useIonRouter();
     return (
         <IonButton expand="block" onClick={async () => {

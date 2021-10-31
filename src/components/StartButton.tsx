@@ -27,7 +27,7 @@ function serialize(state: SeasonSetupState): GameConfiguration {
     };
 }
 
-const StartButton: React.FC<{ config: SeasonSetupState }> = (props) => {
+const StartButton: React.VFC<{ config: SeasonSetupState }> = (props) => {
     const router = useIonRouter();
     return (
         <IonButton expand="block" onClick={async () => {

@@ -9,7 +9,7 @@ export interface CityItemProps {
     onClick?: React.MouseEventHandler;
 }
 
-const CityItem: React.FC<CityItemProps> = ({season, city, onClick}) => {
+const CityItem: React.VFC<CityItemProps> = ({season, city, onClick}) => {
     return (
         <IonItem button={onClick !== undefined} onClick={onClick}>
             <IonLabel>{city.getLabel(season)}</IonLabel>
