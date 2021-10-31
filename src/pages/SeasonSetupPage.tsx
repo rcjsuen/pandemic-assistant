@@ -57,10 +57,34 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
             this.setState({ playerCount: Number(result.value) });
         });
         Storage.get({ key: "month" }).then((result) => {
-            this.setState({ month: Number(result.value) });
+            const month = Number(result.value);
+            this.setState({
+                month: month,
+                objectiveCards: this.getObjectiveCards(month)
+            });
         });
 
         this.updateExtraThreatCards.bind(this);
+    }
+
+    private getObjectiveCards(month: number) {
+        switch (month) {
+            case 0:
+                return 1;
+            case 1:
+                return 1;
+            case 2:
+                return 4;
+            case 3:
+                return 1;
+            case 4:
+                return 4;
+            case 5:
+                return 1;
+            case 6:
+                return 5;
+        }
+        return 0;
     }
 
     private updateExtraThreatCards(threatCards: Set<City>, cities: string[]): void {
@@ -115,7 +139,7 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                                 <IonSelectOption value="8">8</IonSelectOption>
                             </IonSelect>
                         </IonItem>
-                        {this.state.season === 0 &&
+                        {this.state.season === 0 && this.state.month > 6 &&
                             <IonItem>
                                 <IonLabel>Objective Cards</IonLabel>
                                 <IonInput
