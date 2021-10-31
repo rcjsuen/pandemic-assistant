@@ -90,7 +90,7 @@ const OSAKA = new City("Osaka", "🇯🇵", ["dark", "danger"], "Pacific Rim");
 const SYDNEY = new City("Sydney", "🇦🇺", ["primary", "danger"], "Pacific Rim");
 
 // Season 0
-const LEOPOLDVILLE = new City("Leopoldville", "🇨🇩", ["danger", "danger"], "Africa");
+const LEOPOLDVILLE = new City("Leopoldville", "🇨🇩", ["dark", "dark"], "Africa");
 const BOMBAY = new City("Bombay", "🇮🇳", ["danger", "danger"], "Asia");
 const CALCUTTA = new City("Calcutta", "🇮🇳", ["dark", "dark"], "Asia");
 const HANOI = new City("Hanoi", "🇻🇳", ["danger", "danger"], "Asia");
