@@ -2,7 +2,7 @@ import React from 'react';
 import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonInput, IonItem, IonSelect, IonSelectOption, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonBackButton, IonButtons } from '@ionic/react';
 import { ControllerProps } from "../controller/controller";
 import { Storage } from '@capacitor/storage';
-import { City, getAfricaInfections, getSouthAmericaInfections } from '../service/city';
+import { City, getAfricaInfections, getEuropeInfections, getSouthAmericaInfections } from '../service/city';
 import { SeasonZeroConfiguration } from '../service/pandemicAssistant';
 import StartButton from '../components/StartButton';
 
@@ -16,6 +16,7 @@ export interface SeasonSetupState {
     seasonZeroConfiguration: {
         africaThreatCards: Set<City>;
         southAmericaThreatCards: Set<City>;
+        europeThreatCards: Set<City>;
     };
 }
 
@@ -42,7 +43,8 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
             objectiveCards: 0,
             seasonZeroConfiguration: {
                 africaThreatCards: new Set(),
-                southAmericaThreatCards: new Set()
+                southAmericaThreatCards: new Set(),
+                europeThreatCards: new Set()
             }
         };
         Storage.get({ key: "season" }).then((result) => {
@@ -174,6 +176,11 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                             5, "South America",
                             this.state.seasonZeroConfiguration.southAmericaThreatCards,
                             getSouthAmericaInfections()
+                        )}
+                        {this.createInfectionSelection(
+                            7, "Europe",
+                            this.state.seasonZeroConfiguration.europeThreatCards,
+                            getEuropeInfections()
                         )}
                         <IonGrid>
                             <IonRow>

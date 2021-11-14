@@ -137,6 +137,28 @@ export function getInfectedCity(city: string): City {
             return SANTIAGO.infect();
         case SAO_PAULO.getName():
             return SAO_PAULO.infect();
+        case EAST_BERLIN.getName():
+            return EAST_BERLIN.infect();
+        case ISTANBUL.getName():
+            return ISTANBUL.infect();
+        case KIEV.getName():
+            return KIEV.infect();
+        case LENINGRAD.getName():
+            return LENINGRAD.infect();
+        case LONDON.getName():
+            return LONDON.infect();
+        case MADRID.getName():
+            return MADRID.infect();
+        case MOSCOW.getName():
+            return MOSCOW.infect();
+        case PARIS.getName():
+            return PARIS.infect();
+        case PRAGUE.getName():
+            return PRAGUE.infect();
+        case ROME.getName():
+            return ROME.infect();
+        case WARSAW.getName():
+            return WARSAW.infect();
     }
     throw new Error(city);
 }
@@ -159,6 +181,22 @@ export function getSouthAmericaInfections(): City[] {
         LIMA.infect(),
         SANTIAGO.infect(),
         SAO_PAULO.infect()
+    ];
+}
+
+export function getEuropeInfections(): City[] {
+    return [
+        EAST_BERLIN.infect(),
+        ISTANBUL.infect(),
+        KIEV.infect(),
+        LENINGRAD.infect(),
+        LONDON.infect(),
+        MADRID.infect(),
+        MOSCOW.infect(),
+        PARIS.infect(),
+        PRAGUE.infect(),
+        ROME.infect(),
+        WARSAW.infect()
     ];
 }
 

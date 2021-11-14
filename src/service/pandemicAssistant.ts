@@ -5,6 +5,7 @@ import { PlayerDeck } from "./playerDeck";
 export interface SeasonZeroConfiguration {
     africaThreatCards: string[];
     southAmericaThreatCards: string[];
+    europeThreatCards: string[];
 }
 
 export class PandemicAssistant {
@@ -23,7 +24,9 @@ export class PandemicAssistant {
 
     constructor() {
         this.playerDeck = new PlayerDeck(48, 2, 2, 5, 0);
-        this.infectionDeck = new InfectionDeck(1, { africaThreatCards: [], southAmericaThreatCards: [] });
+        this.infectionDeck = new InfectionDeck(1, {
+            africaThreatCards: [], southAmericaThreatCards: [], europeThreatCards: []
+        });
     }
 
     public setup(

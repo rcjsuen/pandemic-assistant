@@ -13,6 +13,10 @@ function serialize(state: SeasonSetupState): GameConfiguration {
     state.seasonZeroConfiguration.southAmericaThreatCards.forEach((city) => {
         southAmerica.push(city.getName());
     });
+    const europe: string[] = [];
+    state.seasonZeroConfiguration.europeThreatCards.forEach((city) => {
+        europe.push(city.getName());
+    });
     return {
         season: state.season,
         playerCount: state.playerCount,
@@ -22,7 +26,8 @@ function serialize(state: SeasonSetupState): GameConfiguration {
         objectiveCards: state.objectiveCards,
         seasonZeroConfiguration: {
             africaThreatCards: africa,
-            southAmericaThreatCards: southAmerica
+            southAmericaThreatCards: southAmerica,
+            europeThreatCards: europe
         }
     };
 }
