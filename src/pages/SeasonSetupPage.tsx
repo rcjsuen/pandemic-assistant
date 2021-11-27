@@ -2,7 +2,7 @@ import React from 'react';
 import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonInput, IonItem, IonSelect, IonSelectOption, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonBackButton, IonButtons } from '@ionic/react';
 import { ControllerProps } from "../controller/controller";
 import { Storage } from '@capacitor/storage';
-import { City, getAfricaInfections, getEuropeInfections, getSouthAmericaInfections } from '../service/city';
+import { City, getAfricaInfections, getAsiaInfections, getEuropeInfections, getSouthAmericaInfections } from '../service/city';
 import { SeasonZeroConfiguration } from '../service/pandemicAssistant';
 import StartButton from '../components/StartButton';
 
@@ -13,8 +13,10 @@ export interface SeasonSetupState {
     eventCards: number;
     epidemicCards: number;
     objectiveCards: number;
+    modifier: number;
     seasonZeroConfiguration: {
         africaThreatCards: Set<City>;
+        asiaThreatCards: Set<City>;
         southAmericaThreatCards: Set<City>;
         europeThreatCards: Set<City>;
     };
@@ -26,7 +28,7 @@ export interface GameConfiguration {
     month: number;
     eventCards: number;
     epidemicCards: number;
-    objectiveCards: number;
+    modifier: number;
     seasonZeroConfiguration: SeasonZeroConfiguration;
 }
 
@@ -40,9 +42,11 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
             month: 1,
             eventCards: 4,
             epidemicCards: 5,
+            modifier: 0,
             objectiveCards: 0,
             seasonZeroConfiguration: {
                 africaThreatCards: new Set(),
+                asiaThreatCards: new Set(),
                 southAmericaThreatCards: new Set(),
                 europeThreatCards: new Set()
             }
@@ -141,7 +145,7 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                                 <IonSelectOption value="8">8</IonSelectOption>
                             </IonSelect>
                         </IonItem>
-                        {this.state.season === 0 && this.state.month > 6 &&
+                        {this.state.season === 0 && this.state.month > 8 &&
                             <IonItem>
                                 <IonLabel>Objective Cards</IonLabel>
                                 <IonInput
@@ -181,6 +185,11 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                             7, "Europe",
                             this.state.seasonZeroConfiguration.europeThreatCards,
                             getEuropeInfections()
+                        )}
+                        {this.createInfectionSelection(
+                            9, "Asia",
+                            this.state.seasonZeroConfiguration.asiaThreatCards,
+                            getAsiaInfections()
                         )}
                         <IonGrid>
                             <IonRow>

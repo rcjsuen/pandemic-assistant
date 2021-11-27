@@ -17,17 +17,34 @@ function serialize(state: SeasonSetupState): GameConfiguration {
     state.seasonZeroConfiguration.europeThreatCards.forEach((city) => {
         europe.push(city.getName());
     });
+    const asia: string[] = [];
+    state.seasonZeroConfiguration.asiaThreatCards.forEach((city) => {
+        asia.push(city.getName());
+    });
+    let modifier = 0;
+    if (state.season === 0) {
+        // extra modifiers if the satellite cards are inserted into the deck
+        if (state.month === 7) {
+            modifier = 3;
+        } else if (state.month === 8) {
+            modifier = 4;
+        } else if (state.month >= 9) {
+            modifier = 5;
+        }
+        modifier = modifier - state.objectiveCards
+    }
     return {
         season: state.season,
         playerCount: state.playerCount,
         month: state.month,
         eventCards: state.eventCards,
         epidemicCards: state.epidemicCards,
-        objectiveCards: state.objectiveCards,
+        modifier: modifier,
         seasonZeroConfiguration: {
             africaThreatCards: africa,
             southAmericaThreatCards: southAmerica,
-            europeThreatCards: europe
+            europeThreatCards: europe,
+            asiaThreatCards: asia
         }
     };
 }

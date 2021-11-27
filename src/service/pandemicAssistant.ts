@@ -6,6 +6,7 @@ export interface SeasonZeroConfiguration {
     africaThreatCards: string[];
     southAmericaThreatCards: string[];
     europeThreatCards: string[];
+    asiaThreatCards: string[];
 }
 
 export class PandemicAssistant {
@@ -25,7 +26,7 @@ export class PandemicAssistant {
     constructor() {
         this.playerDeck = new PlayerDeck(48, 2, 2, 5, 0);
         this.infectionDeck = new InfectionDeck(1, {
-            africaThreatCards: [], southAmericaThreatCards: [], europeThreatCards: []
+            africaThreatCards: [], southAmericaThreatCards: [], europeThreatCards: [], asiaThreatCards: []
         });
     }
 
@@ -35,12 +36,12 @@ export class PandemicAssistant {
         playerCount: number,
         eventCards: number,
         epidemicCards: number,
-        objectiveCards: number,
+        modifier: number,
         seasonZeroConfiguration: SeasonZeroConfiguration
     ): void {
         this.season = season;
         this.month = month;
-        this.playerDeck = new PlayerDeck(season === 2 ? 44 : 48, playerCount, eventCards, epidemicCards, objectiveCards);
+        this.playerDeck = new PlayerDeck(season === 2 ? 44 : 48, playerCount, eventCards, epidemicCards, modifier);
         this.infectionDeck = new InfectionDeck(season, seasonZeroConfiguration);
         this.epidemicsDrawn = [];
         for (let i = 0; i < epidemicCards; i++) {

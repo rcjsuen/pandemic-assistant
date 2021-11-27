@@ -21,6 +21,9 @@ export class InfectionDeck {
         seasonZeroConfiguration.europeThreatCards.forEach((city) => {
             this.discards.push(getInfectedCity(city));
         });
+        seasonZeroConfiguration.asiaThreatCards.forEach((city) => {
+            this.discards.push(getInfectedCity(city));
+        });
         this.groups[0].sort((a, b) => {
             return a.getName().localeCompare(b.getName());
         });

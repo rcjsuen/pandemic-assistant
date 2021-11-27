@@ -159,6 +159,32 @@ export function getInfectedCity(city: string): City {
             return ROME.infect();
         case WARSAW.getName():
             return WARSAW.infect();
+        case BAGHDAD.getName():
+            return BAGHDAD.infect();
+        case BANGKOK.getName():
+            return BANGKOK.infect();
+        case BOMBAY.getName():
+            return BOMBAY.infect();
+        case CALCUTTA.getName():
+            return CALCUTTA.infect();
+        case DELHI.getName():
+            return DELHI.infect();
+        case HANOI.getName():
+            return HANOI.infect();
+        case KARACHI.getName():
+            return KARACHI.infect();
+        case NOVOSIBIRSK.getName():
+            return NOVOSIBIRSK.infect();
+        case PEKING.getName():
+            return PEKING.infect();
+        case PYONGYANG.getName():
+            return PYONGYANG.infect();
+        case RIYADH.getName():
+            return RIYADH.infect();
+        case SAIGON.getName():
+            return SAIGON.infect();
+        case SHANGHAI.getName():
+            return SHANGHAI.infect();
     }
     throw new Error(city);
 }
@@ -198,6 +224,24 @@ export function getEuropeInfections(): City[] {
         ROME.infect(),
         WARSAW.infect()
     ];
+}
+
+export function getAsiaInfections(): City[] {
+    return [
+        BAGHDAD.infect(),
+        BANGKOK.infect(),
+        BOMBAY.infect(),
+        CALCUTTA.infect(),
+        DELHI.infect(),
+        HANOI.infect(),
+        KARACHI.infect(),
+        NOVOSIBIRSK.infect(),
+        PEKING.infect(),
+        PYONGYANG.infect(),
+        RIYADH.infect(),
+        SAIGON.infect(),
+        SHANGHAI.infect()
+    ]
 }
 
 export function getCities(season: number): City[] {

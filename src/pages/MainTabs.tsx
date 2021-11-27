@@ -33,7 +33,7 @@ class MainTabs extends React.Component<{}, { season: 0 | 1 }> {
                         state.playerCount,
                         state.eventCards,
                         state.epidemicCards,
-                        state.objectiveCards,
+                        state.modifier,
                         state.seasonZeroConfiguration
                     );
                     Storage.set({ key: "initialized", value: "true" });

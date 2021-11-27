@@ -59,10 +59,10 @@ export class Controller {
         playerCount: number,
         eventCards: number,
         epidemicCards: number,
-        objectiveCards: number,
+        modifier: number,
         seasonZeroConfiguration: SeasonZeroConfiguration
     ): void {
-        this.assistant.setup(season, month, playerCount, eventCards, epidemicCards, objectiveCards, seasonZeroConfiguration);
+        this.assistant.setup(season, month, playerCount, eventCards, epidemicCards, modifier, seasonZeroConfiguration);
         this.notifyPlayerDeckHandlers();
         this.notifyInfectionDeckHandlers();
     }
