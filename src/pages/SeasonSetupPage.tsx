@@ -2,7 +2,7 @@ import React from 'react';
 import { IonGrid, IonCol, IonRow, IonList, IonLabel, IonInput, IonItem, IonSelect, IonSelectOption, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonBackButton, IonButtons } from '@ionic/react';
 import { ControllerProps } from "../controller/controller";
 import { Storage } from '@capacitor/storage';
-import { City, getAfricaInfections, getAsiaInfections, getEuropeInfections, getSouthAmericaInfections } from '../service/city';
+import { City, getAfricaInfections, getAsiaInfections, getEuropeInfections, getNorthAmericaInfections, getSouthAmericaInfections } from '../service/city';
 import { SeasonZeroConfiguration } from '../service/pandemicAssistant';
 import StartButton from '../components/StartButton';
 
@@ -19,6 +19,7 @@ export interface SeasonSetupState {
         asiaThreatCards: Set<City>;
         southAmericaThreatCards: Set<City>;
         europeThreatCards: Set<City>;
+        northAmericaThreatCards: Set<City>;
     };
 }
 
@@ -48,7 +49,8 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                 africaThreatCards: new Set(),
                 asiaThreatCards: new Set(),
                 southAmericaThreatCards: new Set(),
-                europeThreatCards: new Set()
+                europeThreatCards: new Set(),
+                northAmericaThreatCards: new Set()
             }
         };
         Storage.get({ key: "season" }).then((result) => {
@@ -190,6 +192,11 @@ class SeasonSetupPage extends React.Component<ControllerProps, SeasonSetupState>
                             9, "Asia",
                             this.state.seasonZeroConfiguration.asiaThreatCards,
                             getAsiaInfections()
+                        )}
+                        {this.createInfectionSelection(
+                            10, "North America",
+                            this.state.seasonZeroConfiguration.northAmericaThreatCards,
+                            getNorthAmericaInfections()
                         )}
                         <IonGrid>
                             <IonRow>

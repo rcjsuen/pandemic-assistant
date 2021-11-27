@@ -7,6 +7,7 @@ export interface SeasonZeroConfiguration {
     southAmericaThreatCards: string[];
     europeThreatCards: string[];
     asiaThreatCards: string[];
+    northAmericaThreatCards: string[];
 }
 
 export class PandemicAssistant {
@@ -26,7 +27,7 @@ export class PandemicAssistant {
     constructor() {
         this.playerDeck = new PlayerDeck(48, 2, 2, 5, 0);
         this.infectionDeck = new InfectionDeck(1, {
-            africaThreatCards: [], southAmericaThreatCards: [], europeThreatCards: [], asiaThreatCards: []
+            africaThreatCards: [], southAmericaThreatCards: [], europeThreatCards: [], asiaThreatCards: [], northAmericaThreatCards: []
         });
     }
 

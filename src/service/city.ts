@@ -244,6 +244,19 @@ export function getAsiaInfections(): City[] {
     ]
 }
 
+export function getNorthAmericaInfections(): City[] {
+    return [
+        ATLANTA.infect(),
+        HAVANA.infect(),
+        LOS_ANGELES.infect(),
+        MEXICO_CITY.infect(),
+        NEW_YORK.infect(),
+        SAN_FRANCISCO.infect(),
+        TORONTO.infect(),
+        WASHINGTON.infect()
+    ]
+}
+
 export function getCities(season: number): City[] {
     if (season === 2) {
         return [

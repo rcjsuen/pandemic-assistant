@@ -21,6 +21,10 @@ function serialize(state: SeasonSetupState): GameConfiguration {
     state.seasonZeroConfiguration.asiaThreatCards.forEach((city) => {
         asia.push(city.getName());
     });
+    const northAmerica: string[] = [];
+    state.seasonZeroConfiguration.northAmericaThreatCards.forEach((city) => {
+        northAmerica.push(city.getName());
+    });
     let modifier = 0;
     if (state.season === 0) {
         // extra modifiers if the satellite cards are inserted into the deck
@@ -44,7 +48,8 @@ function serialize(state: SeasonSetupState): GameConfiguration {
             africaThreatCards: africa,
             southAmericaThreatCards: southAmerica,
             europeThreatCards: europe,
-            asiaThreatCards: asia
+            asiaThreatCards: asia,
+            northAmericaThreatCards: northAmerica
         }
     };
 }
